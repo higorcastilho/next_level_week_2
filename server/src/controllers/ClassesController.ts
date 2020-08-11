@@ -14,7 +14,7 @@ export default class ClassesController {
 		const filters = req.query
 
 		if (!filters.week_day || !filters.subject || !filters.time) {
-			return response.status(400).json({
+			return res.status(400).json({
 				error: 'Missing filters to search classes'
 			})
 		}
@@ -76,7 +76,7 @@ export default class ClassesController {
 
 			await trx.commit()
 
-			return res.status(201).send('Success my consagrado')
+			return res.status(201).send('Successfuly created')
 
 		} catch(e) {
 

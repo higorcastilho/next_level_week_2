@@ -8,10 +8,10 @@ export async function up(knex: Knex) {
 		table.string('whatsapp').notNullable()
 		table.string('bio').notNullable()
 
-		table.integer('login_id')
+		table.integer('account_id')
 			.notNullable()
 			.references('id')
-			.inTable('logins')
+			.inTable('accounts')
 			.onUpdate('CASCADE')
 			.onDelete('CASCADE')
 	})

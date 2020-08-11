@@ -1,7 +1,7 @@
 import Knex from 'knex'
 
 export async function up(knex: Knex) {
-	return knex.schema.createTable('logins', table => {
+	return knex.schema.createTable('accounts', table => {
 		table.increments('id').primary()
 		table.string('email').notNullable()
 		table.string('password').notNullable()
@@ -10,5 +10,5 @@ export async function up(knex: Knex) {
 }
 
 export async function down(knex: Knex) {
-	return knex.schema.dropTable('logins')
+	return knex.schema.dropTable('accounts')
 }
