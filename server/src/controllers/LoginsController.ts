@@ -33,6 +33,6 @@ export default class LoginsController {
 			})
 		})
 
-		res.json({ email, generate })
+		res.json({ "type": "bearer", "token": generate })
 	}
 }
