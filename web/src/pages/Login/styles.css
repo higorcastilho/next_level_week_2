@@ -1,1 +1,16 @@
-styles.css
+#page-login {
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	color: var(--color-text-title);
+	background: var(--color-background);
+}
+
+#page-login main fieldset {
+	border: 0;
+	padding: 0 2.4rem;
+}
