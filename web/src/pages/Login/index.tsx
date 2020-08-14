@@ -54,7 +54,7 @@ function Login() {
 			const userId = jwtDecode(token)
 
 			login(token)
-			history.push('/study')
+			history.push('/')
 
 		}).catch( err => {
 			console.log(err)

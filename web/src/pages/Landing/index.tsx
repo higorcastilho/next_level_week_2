@@ -7,6 +7,9 @@ import studyIcon from '../../assets/images/icons/study.svg'
 import giveClassesIcon from '../../assets/images/icons/give-classes.svg'
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons"
+
 import api from '../../services/api'
 import jwtDecode from '../../services/jwtDecode'
 import { isAuthenticated, getToken } from '../../services/auth'
@@ -15,6 +18,11 @@ import './styles.css'
 
 function Landing() {
 	const [ totalConnections, setTotalConnections ] = useState(0)
+
+	const [ userInfo, setUserInfo ] = useState({ 
+		avatar: '',
+		name: ''
+	})
 
 	useEffect(() => {
 
@@ -25,6 +33,10 @@ function Landing() {
 			const accountId = jwtDecode(token)
 			api.get(`accounts/${accountId}`).then( res => {
 				console.log(res.data[0])
+				setUserInfo({
+					name: res.data[0].name,
+					avatar: res.data[0].avatar
+				})
 			})
 		}
 
@@ -37,9 +49,13 @@ function Landing() {
 	return (
 		<div id="page-landing" >
 			<div id="page-landing-content" className="container">
-				<div className="profile-header">
-					<h1>Hello</h1>
-				</div>
+				{	userInfo.name &&	<div id="profile-header">
+									<Link to="/profile">
+										<img src={userInfo.avatar} alt="Foto do usuário" />
+										{userInfo.name}
+									</Link>
+									<FontAwesomeIcon icon={faPowerOff} />
+								</div>}
 				<div className="logo-container">
 					<img src={logoImg} alt="Proffy" />
 					<h2>Sua plataforma de estudos online</h2>

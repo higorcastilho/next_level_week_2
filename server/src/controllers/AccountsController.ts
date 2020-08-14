@@ -15,6 +15,24 @@ export default class AccountsController {
 		}
 	}
 
+	async update(req, res) {
+		try {
+			const userUpdated = await db('users')
+				.where({ account_id: req.params.id })
+				.update({ 
+					name: req.body.name,
+					avatar: req.body.avatar,
+					whatsapp: req.body.whatsapp,
+					bio: req.body.bio,
+				})
+
+			res.json(userUpdated)
+
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
 	async create(req, res) {
 		try {
 			const { name, lastName, email, password } = req.body

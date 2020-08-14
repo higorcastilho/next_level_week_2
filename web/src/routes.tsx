@@ -9,6 +9,7 @@ import TeacherForm from './pages/TeacherForm'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import DoneRegister from './pages/DoneRegister'
+import Profile from './pages/Profile'
 
 interface PrivateRouteProps extends RouteProps {
 	component: any
@@ -42,6 +43,7 @@ function Routes() {
 			
 			<PrivateRoute path="/study" component={TeacherList} />
 			<PrivateRoute path="/give-classes" component={TeacherForm} />
+			<PrivateRoute path="/profile" component={Profile} />
 		</BrowserRouter>
 	)
 }
