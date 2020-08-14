@@ -39,7 +39,7 @@ export default class ClassesController {
 	}
 
 	async create(req: Req, res: Res) {
-		const { name, avatar, whatsapp, bio, subject, cost, schedule } = req.body
+		const { name, avatar, whatsapp, bio, account_id, subject, cost, schedule } = req.body
 
 		const trx = await db.transaction()
 
@@ -48,7 +48,8 @@ export default class ClassesController {
 			name,
 			avatar, 
 			whatsapp,
-			bio
+			bio,
+			account_id
 			})
 
 			const user_id = insertedUsersIds[0]

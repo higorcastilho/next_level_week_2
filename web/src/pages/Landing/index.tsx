@@ -8,6 +8,8 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.svg'
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 
 import api from '../../services/api'
+import jwtDecode from '../../services/jwtDecode'
+import { isAuthenticated, getToken } from '../../services/auth'
 
 import './styles.css'
 
@@ -15,6 +17,17 @@ function Landing() {
 	const [ totalConnections, setTotalConnections ] = useState(0)
 
 	useEffect(() => {
+
+		const isAuth = isAuthenticated()
+		const token = JSON.stringify(getToken())
+
+		if (isAuth) {
+			const accountId = jwtDecode(token)
+			api.get(`accounts/${accountId}`).then( res => {
+				console.log(res.data[0])
+			})
+		}
+
 		api.get('connections').then((res) => {
 			const { total } = res.data
 			setTotalConnections(total)
@@ -24,6 +37,9 @@ function Landing() {
 	return (
 		<div id="page-landing" >
 			<div id="page-landing-content" className="container">
+				<div className="profile-header">
+					<h1>Hello</h1>
+				</div>
 				<div className="logo-container">
 					<img src={logoImg} alt="Proffy" />
 					<h2>Sua plataforma de estudos online</h2>

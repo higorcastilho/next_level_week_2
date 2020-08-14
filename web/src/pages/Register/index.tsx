@@ -2,27 +2,24 @@ import React, { useState, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useHistory } from 'react-router-dom'
-import jwtDecode from '../../services/jwtDecode'
 
 import Input from '../../components/Input'
 import CommonCase from '../../components/CommonCase'
 
 import api from '../../services/api'
-import { login } from '../../services/auth'
 
 import './styles.css'
 import logoImg from '../../assets/images/logo.svg'
 
-import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
-import successCheck from '../../assets/images/icons/success-check-icon.svg'
-
-function Login() { 
+function Register() { 
 
 	const history = useHistory()
 
+	const [ name, setName ] = useState('')
+	const [ lastName, setLastName ] = useState('')
 	const [ email, setEmail ] = useState('')
 	const [ password, setPassword ] = useState('')
-	const [ isChecked, setIsChecked ] = useState(false)
+	
 	const [ buttonCollor, setButtonColor ] = useState('#dcdce5')
 	const [ letterCollor, setLetterColor ] = useState('#9c98a6')
 
@@ -36,25 +33,18 @@ function Login() {
 		}
 	}
 
-	function handleIsChecked() {
-		if (isChecked) setIsChecked(false)
-		else setIsChecked(true)
-	}
-
-	function handleShootLogin(e: FormEvent) {
+	function handleShootRegister(e: FormEvent) {
 		e.preventDefault()
-		api.post('login', {
+		api.post('accounts', {
 
+			name,
+			lastName,
 			email,
 			password
 			
-		}).then( (res) => {
+		}).then( () => {
 
-			const token = res.data.token
-			const userId = jwtDecode(token)
-
-			login(token)
-			history.push('/study')
+			history.push('/done-register')
 
 		}).catch( err => {
 			console.log(err)
@@ -63,15 +53,38 @@ function Login() {
 
 	return (
 		<div id="page-login">
-			
-			<CommonCase mainImg={logoImg} subtitle="Sua plataforma de estudos online"/>
 			<div id="page-login-content" >
 				<header className="form-title">
-					<strong><p>Fazer login</p></strong>
+					<strong><p>Cadastro</p></strong>
+					<p>Preencha os dados abaixo para começar.</p>
 				</header>
 				<main>
-					<form onSubmit={handleShootLogin}>
+					<form onSubmit={handleShootRegister}>
 						<fieldset>
+							<Input 
+								name="nome" 
+								label=""
+								type="text" 
+								placeholder="Nome"
+								required
+								value={name}
+								onChange={ e => {
+									setName(e.target.value)
+								}}
+								onKeyUp={handleButtonColor} 
+							/>
+							<Input 
+								name="sobrenome" 
+								label=""
+								type="text" 
+								placeholder="Sobrenome"
+								required
+								value={lastName}
+								onChange={ e => {
+									setLastName(e.target.value)
+								}}
+								onKeyUp={handleButtonColor} 
+							/>
 							<Input 
 								name="email" 
 								label="" 
@@ -84,7 +97,7 @@ function Login() {
 								onKeyUp={handleButtonColor} 
 							/>
 							<Input 
-								name="email" 
+								name="senha" 
 								label=""
 								type="password" 
 								placeholder="Senha"
@@ -95,36 +108,17 @@ function Login() {
 								}}
 								onKeyUp={handleButtonColor} 
 							/>
+
 						</fieldset>
-						<div className="login-options">
-							<span className="remember-me" onClick={handleIsChecked}>
-								{ isChecked 
-									? <img src={successCheck} />
-									: <input type="checkbox" id="remember" name="remember"/>
-								}
-								<label htmlFor="remember" > Lembrar-me </label>
-							</span>
-							<span className="forgot-password">
-								Esqueci minha senha
-							</span>
-						</div>
-						<button type="submit" style={{backgroundColor: buttonCollor, color: letterCollor}}>
-							Entrar
+						<button type="submit" style={{backgroundColor: '#04d361', color: '#ffffff'}}>
+							Concluir cadastro
 						</button>
-						<footer>
-							<div className="register-footer">
-								<div>
-									<p>Não tem conta?</p>
-									<Link to="/register">Cadastre-se</Link>
-								</div>
-								<p>É de graça <img src={purpleHeartIcon} alt="Coração roxo" /></p>
-							</div>
-						</footer>
 					</form>
 				</main>
 			</div>
+			<CommonCase mainImg={logoImg} subtitle="Sua plataforma de estudos online"/>
 		</div>
 	)
 }
 
-export default Login
+export default Register

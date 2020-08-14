@@ -7,6 +7,8 @@ import Landing from './pages/Landing'
 import TeacherList from './pages/TeacherList'
 import TeacherForm from './pages/TeacherForm'
 import Login from './pages/Login'
+import Register from './pages/Register'
+import DoneRegister from './pages/DoneRegister'
 
 interface PrivateRouteProps extends RouteProps {
 	component: any
@@ -35,6 +37,8 @@ function Routes() {
 		<BrowserRouter>
 			<Route path="/" exact component={Landing} />
 			<Route path="/login" component={Login} />
+			<Route path="/register" component={Register} />
+			<Route path="/done-register" component={DoneRegister} />
 			
 			<PrivateRoute path="/study" component={TeacherList} />
 			<PrivateRoute path="/give-classes" component={TeacherForm} />
