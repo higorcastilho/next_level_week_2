@@ -74,37 +74,6 @@ function TeacherForm() {
 			<main>
 				<form onSubmit={handleCreateClass}>
 					<fieldset>
-						<legend>Seus dados</legend>
-							<Input 
-								name="name" 
-								label="Nome completo" 
-								value={name} 
-								onChange={ e => {
-									setName(e.target.value)
-								}}/>
-							<Input 
-								name="avatar" 
-								label="Avatar"
-								value={avatar} 
-								onChange={ e => {
-									setAvatar(e.target.value)
-							}}/>
-							<Input 
-								name="whatsapp" 
-								label="Whatsapp" 
-								value={whatsapp} 
-								onChange={ e => {
-									setWhatsapp(e.target.value)
-							}}/>
-							<Textarea 
-								name="bio" 
-								label="Biografia"
-								value={bio} 
-								onChange={ e => {
-									setBio(e.target.value) 
-							}}/>
-					</fieldset>
-					<fieldset>
 						<legend>Sobre a aula</legend>
 							<Select 
 								name="subject" 

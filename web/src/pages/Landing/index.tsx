@@ -12,13 +12,13 @@ import { faPowerOff } from "@fortawesome/free-solid-svg-icons"
 
 import api from '../../services/api'
 import jwtDecode from '../../services/jwtDecode'
-import { isAuthenticated, getToken } from '../../services/auth'
+import { isAuthenticated, getToken, logout } from '../../services/auth'
 
 import './styles.css'
 
 function Landing() {
-	const [ totalConnections, setTotalConnections ] = useState(0)
 
+	const [ totalConnections, setTotalConnections ] = useState(0)
 	const [ userInfo, setUserInfo ] = useState({ 
 		avatar: '',
 		name: ''
@@ -32,7 +32,6 @@ function Landing() {
 		if (isAuth) {
 			const accountId = jwtDecode(token)
 			api.get(`accounts/${accountId}`).then( res => {
-				console.log(res.data[0])
 				setUserInfo({
 					name: res.data[0].name,
 					avatar: res.data[0].avatar
@@ -44,7 +43,13 @@ function Landing() {
 			const { total } = res.data
 			setTotalConnections(total)
 		})
+		
 	}, [])
+
+	async function handleLogout() {
+		await logout()
+		window.location.reload(false)
+	}
 
 	return (
 		<div id="page-landing" >
@@ -54,7 +59,11 @@ function Landing() {
 										<img src={userInfo.avatar} alt="Foto do usuário" />
 										{userInfo.name}
 									</Link>
-									<FontAwesomeIcon icon={faPowerOff} />
+									<FontAwesomeIcon 
+										icon={faPowerOff} 
+										className="power-off-button"
+										onClick={handleLogout}
+									/>
 								</div>}
 				<div className="logo-container">
 					<img src={logoImg} alt="Proffy" />
