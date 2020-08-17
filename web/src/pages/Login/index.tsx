@@ -1,14 +1,10 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
+import { Context } from '../../context/AuthContext'
 import { useHistory } from 'react-router-dom'
-import jwtDecode from '../../services/jwtDecode'
 
 import Input from '../../components/Input'
 import CommonCase from '../../components/CommonCase'
-
-import api from '../../services/api'
-import { login } from '../../services/auth'
 
 import './styles.css'
 import logoImg from '../../assets/images/logo.svg'
@@ -17,6 +13,10 @@ import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 import successCheck from '../../assets/images/icons/success-check-icon.svg'
 
 function Login() { 
+
+
+	const { authenticated, signIn } = useContext(Context)
+	
 
 	const history = useHistory()
 
@@ -41,24 +41,10 @@ function Login() {
 		else setIsChecked(true)
 	}
 
-	function handleShootLogin(e: FormEvent) {
+	async function handleLogin(e: FormEvent) {
 		e.preventDefault()
-		api.post('login', {
-
-			email,
-			password
-			
-		}).then( (res) => {
-
-			const token = res.data.token
-			const userId = jwtDecode(token)
-
-			login(token)
-			history.push('/')
-
-		}).catch( err => {
-			console.log(err)
-		})
+		await signIn(email, password)
+		history.push('/')
 	}
 
 	return (
@@ -70,7 +56,7 @@ function Login() {
 					<strong><p>Fazer login</p></strong>
 				</header>
 				<main>
-					<form onSubmit={handleShootLogin}>
+					<form onSubmit={ handleLogin }>
 						<fieldset>
 							<Input 
 								name="email" 

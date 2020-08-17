@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+
+import { Context } from '../../context/AuthContext'
 
 import logoImg from '../../assets/images/logo.svg'
 import landingImg from '../../assets/images/landing.svg'
@@ -19,32 +21,22 @@ import './styles.css'
 function Landing() {
 
 	const [ totalConnections, setTotalConnections ] = useState(0)
-	const [ userInfo, setUserInfo ] = useState({ 
-		avatar: '',
-		name: ''
+
+	const [ userInfo, setUserInfo ] = useState({
+		name: '',
+		avatar: ''
 	})
 
-	useEffect(() => {
+	const { user, handleUserInfo } = useContext(Context)
 
-		const isAuth = isAuthenticated()
-		const token = JSON.stringify(getToken())
+	useEffect(() => { 
 
-		if (isAuth) {
-			const accountId = jwtDecode(token)
-			api.get(`accounts/${accountId}`).then( res => {
-				setUserInfo({
-					name: res.data[0].name,
-					avatar: res.data[0].avatar
-				})
-			})
+		async function authUser() {
+			await handleUserInfo()
+			await setUserInfo(user)
 		}
-
-		api.get('connections').then((res) => {
-			const { total } = res.data
-			setTotalConnections(total)
-		})
-		
-	}, [])
+		authUser()
+	}, [userInfo])
 
 	async function handleLogout() {
 		await logout()

@@ -97,7 +97,7 @@
 		max-width: 1100px;
 
 		display: grid;
-		grid-template-rows: 50px 1fr;
+		grid-template-rows: 80px 1fr;
 		grid-template-columns: 2fr 1fr 1fr;
 
 		grid-template-areas: 
@@ -141,15 +141,20 @@
 	}
 
 	.power-off-button {
-		font-size: 2.4rem;
-		cursor: pointer
+		font-size: 4.4rem;
+		color: var(--color-text-in-primary);
+		padding: 1.2rem 1.2rem;
+		cursor: pointer;
+		background: var(--color-primary-dark);
+		border-radius: 10px;
 	}
 
 	.logo-container {
 		grid-area: logo;
 		align-self: center;
 		text-align: left;
-		margin: 0;
+		margin-top: -2rem;
+		height: 10rem;
 	}
 
 	.logo-container h2 {
@@ -169,10 +174,14 @@
 	.buttons-container {
 		grid-area: buttons;
 		justify-content: flex-start;
+		padding: 2rem 0;
 	}
 
 	.buttons-container a {
-		font-size: 2.4rem
+		font-size: 2rem;
+		height: 8rem;
+		width: 25rem;
+		margin-bottom: 3rem
 	}
 
 	.total-connections {
