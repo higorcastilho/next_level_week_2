@@ -7,6 +7,6 @@ import verifyJwt from '../utils/verifyJwt'
 const routes = express.Router()
 
 routes.get('/classes', verifyJwt, classesController.index)
-routes.post('/classes', classesController.create)
+routes.post('/classes/:id', classesController.create)
 
 export default routes

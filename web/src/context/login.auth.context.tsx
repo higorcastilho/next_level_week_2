@@ -12,7 +12,7 @@ export default async function handleLogin(email:string, password:string) {
 		const token = res.data.token
 		const userId = jwtDecode(token)
 		login(token)
-
+		
 	}).catch( err => {
 		console.log(err)
 	})

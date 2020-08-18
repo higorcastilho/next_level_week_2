@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import PageHeader from '../../components/PageHeader'
 import Input from '../../components/Input'
@@ -7,6 +7,12 @@ import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
 
 import warningIcon from '../../assets/images/icons/warning.svg'
+import successBackground from '../../assets/images/success-background.svg'
+import logoImg from '../../assets/images/logo.svg'
+import backIcon from '../../assets/images/icons/back.svg'
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons"
 
 import api from '../../services/api'
 import jwtDecode from '../../services/jwtDecode'
@@ -65,10 +71,25 @@ function Profile() {
 
 	return (
 		<div id="page-teacher-form" className="container">
-			<PageHeader 
-				title="Que incrível que você quer dar aulas."
-				description="O primeiro passo é preencher este formulário de inscrição"
-			/>
+			<header className="teacher-profile-header" style={{backgroundImage: "url(" + successBackground + ")"}}>
+				<div className="top-bar-container-profile">
+					<Link to="/">
+						<img src={backIcon} alt="Voltar" />
+					</Link>
+					<p>Meu perfil</p>
+					<img src={logoImg} alt="Proffy" />
+				</div>
+				<div className="teacher-photo">
+					<img src={avatar}/>
+					<FontAwesomeIcon 
+						icon={faCamera} 
+						className="photo-button"
+						//onClick={}
+					/>
+				</div>
+				<p>{name}</p>
+				<legend>Matemática - Biologia - Química</legend>
+			</header>
 			<main>
 				<form onSubmit={handleUpdateUser}>
 					<fieldset>

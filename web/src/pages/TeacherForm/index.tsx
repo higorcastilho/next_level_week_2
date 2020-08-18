@@ -1,5 +1,7 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import { Context } from '../../context/AuthContext'
 
 import PageHeader from '../../components/PageHeader'
 import Input from '../../components/Input'
@@ -15,11 +17,7 @@ import api from '../../services/api'
 function TeacherForm() {
 
 	const history = useHistory()
-
-	const [ name, setName ] = useState('')
-	const [ avatar, setAvatar ] = useState('')
-	const [ whatsapp, setWhatsapp ] = useState('')
-	const [ bio, setBio ] = useState('')
+	const { user: { accId } } = useContext(Context)
 
 	const [subject, setSubject] = useState('')
 	const [cost, setCost] = useState('')
@@ -48,11 +46,7 @@ function TeacherForm() {
 	function handleCreateClass(e: FormEvent) {
 		e.preventDefault()
 
-		api.post('classes', {
-			name,
-			avatar, 
-			whatsapp,
-			bio,
+		api.post(`classes/${accId}`, {
 			subject,
 			cost: Number(cost),
 			schedule: scheduleItems

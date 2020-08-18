@@ -10,8 +10,53 @@
 	background: var(--color-primary);
 }
 
+
+#profile-header {
+	align-self: center;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 1rem;
+	margin-top: -8rem
+}
+
+#profile-header a {
+	width: 20rem;
+	height: 7rem;
+	border-radius: 0.8rem;
+	font: 200 2.0rem Archivo;
+	font-size: 1.6rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	text-decoration: none;
+	color: var(--color-button-text);
+
+	transition: background-color 0.2s;
+}
+
+#profile-header img {
+	width: 6rem;
+	height: 6rem;
+	border-radius: 50%;
+	margin-right: 2rem;
+}
+
+.power-off-button {
+	font-size: 4.1rem;
+	color: var(--color-text-in-primary);
+	padding: 1.2rem 1.2rem;
+	cursor: pointer;
+	background: var(--color-primary-dark);
+	border-radius: 10px;
+}
+
+
 .logo-container img {
-	height: 10rem;
+	height: 8rem;
+	margin-top: 2rem
 }
 
 .hero-image {
@@ -25,7 +70,7 @@
 
 .logo-container h2 {
 	font-weight: 500;
-	font-size: 2.4rem;
+	font-size: 1.8rem;
 	line-height: 4.6rem;
 	margin-top: 0.8rem;
 }
@@ -38,7 +83,7 @@
 
 .buttons-container a {
 	width: 30rem;
-	height: 10.4rem;
+	height: 7.8rem;
 	border-radius: 0.8rem;
 	font: 700 2.0rem Archivo;
 
@@ -57,7 +102,7 @@
 }
 
 .buttons-container a img {
-	width: 4rem;
+	width: 3.2rem;
 }
 
 .buttons-container a.study {
@@ -93,6 +138,11 @@
 }
 
 @media (min-width: 1100px) {
+
+	#page-landing {
+		overflow-y: hidden;
+	}
+
 	#page-landing-content {
 		max-width: 1100px;
 
@@ -114,6 +164,7 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 4rem 0; 
+		margin-top: 3.2rem
 	}
 
 	#profile-header a {
@@ -121,7 +172,7 @@
 		height: 10.4rem;
 		border-radius: 0.8rem;
 		font: 200 2.0rem Archivo;
-		font-size: 1.5rem;
+		font-size: 1.7rem;
 
 		display: flex;
 		align-items: center;
@@ -164,6 +215,7 @@
 
 	.logo-container img {
 		height: 100%;
+		margin-top: 0
 	}
 
 	.hero-image {
@@ -179,7 +231,7 @@
 
 	.buttons-container a {
 		font-size: 2rem;
-		height: 8rem;
+		height: 10rem;
 		width: 25rem;
 		margin-bottom: 3rem
 	}

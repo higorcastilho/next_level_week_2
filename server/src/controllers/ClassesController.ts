@@ -39,30 +39,19 @@ export default class ClassesController {
 	}
 
 	async create(req: Req, res: Res) {
-		const { name, avatar, whatsapp, bio, account_id, subject, cost, schedule } = req.body
+		const { subject, cost, schedule } = req.body
 
 		const trx = await db.transaction()
 
 		try {
-			const insertedUsersIds = await trx('users').insert({
-			name,
-			avatar, 
-			whatsapp,
-			bio,
-			account_id
-			})
-
-			const user_id = insertedUsersIds[0]
-
+			
 			const insertedClassesIds = await trx('classes').insert({
 				subject,
 				cost,
-				user_id
+				account_id: req.params.id
 			})
 
 			const class_id = insertedClassesIds[0]
-
-			
 
 			const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
 				return {
@@ -77,7 +66,7 @@ export default class ClassesController {
 
 			await trx.commit()
 
-			return res.status(201).send('Successfuly created')
+			return res.status(201).send('Class successfuly created')
 
 		} catch(e) {
 

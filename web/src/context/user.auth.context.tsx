@@ -5,6 +5,7 @@ import jwtDecode from '../services/jwtDecode'
 import { isAuthenticated, getToken, logout } from '../services/auth'
 
 interface Response {
+	accId: number
 	name: string
 	avatar: string
 }
@@ -20,10 +21,12 @@ export default function handleUser():Promise<Response> {
 			const accountId = jwtDecode(token)
 
 			api.get(`accounts/${accountId}`).then( res => {
+
 				const name = res.data[0].name  
 				const avatar = res.data[0].avatar
 
 				resolve({
+					accId: accountId ? accountId : 0,
 					name: name ? name : '',
 					avatar: avatar ? avatar : ''
 				})

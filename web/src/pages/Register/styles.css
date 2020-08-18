@@ -1,0 +1,21 @@
+.form-title strong > p {
+	font-weight: bold;
+	font-size: 3.3rem;
+}
+
+.form-title > p {
+	font-size: 1.4rem;
+	font-weight: normal;
+	max-width: 25rem
+}
+
+@media(min-width: 1100px) {
+
+	.form-title strong > p {
+		font-size: 4rem;
+	}
+
+	.form-title > p {
+		font-size: 1.7rem;
+	}
+}
