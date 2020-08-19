@@ -17,7 +17,7 @@ import api from '../../services/api'
 function TeacherForm() {
 
 	const history = useHistory()
-	const { user: { accId } } = useContext(Context)
+	const { user: { account_id } } = useContext(Context)
 
 	const [subject, setSubject] = useState('')
 	const [cost, setCost] = useState('')
@@ -46,7 +46,7 @@ function TeacherForm() {
 	function handleCreateClass(e: FormEvent) {
 		e.preventDefault()
 
-		api.post(`classes/${accId}`, {
+		api.post(`classes/${account_id}`, {
 			subject,
 			cost: Number(cost),
 			schedule: scheduleItems

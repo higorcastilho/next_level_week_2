@@ -5,9 +5,15 @@ import jwtDecode from '../services/jwtDecode'
 import { isAuthenticated, getToken, logout } from '../services/auth'
 
 interface Response {
-	accId: number
+	userId: number
 	name: string
 	avatar: string
+	whatsapp: string
+	bio: string
+	account_id: number
+	firstName: string
+	lastName: string
+	email: string
 }
 
 export default function handleUser():Promise<Response> {
@@ -22,13 +28,26 @@ export default function handleUser():Promise<Response> {
 
 			api.get(`accounts/${accountId}`).then( res => {
 
-				const name = res.data[0].name  
-				const avatar = res.data[0].avatar
+				const userId = res.data.data[0].id
+				const name = res.data.data[0].attributes.name  
+				const avatar = res.data.data[0].attributes.avatar  
+				const whatsapp = res.data.data[0].attributes.whatsapp  
+				const bio = res.data.data[0].attributes.bio  
+				const account_id = res.data.data[0].attributes.account_id  
+				const firstName = res.data.data[0].attributes.firstName  
+				const lastName = res.data.data[0].attributes.lastName  
+				const email = res.data.data[0].attributes.email  
 
 				resolve({
-					accId: accountId ? accountId : 0,
+					userId: userId ? userId : 0,
 					name: name ? name : '',
-					avatar: avatar ? avatar : ''
+					avatar: avatar ? avatar : '',
+					whatsapp: whatsapp ? whatsapp : '',
+					bio: bio ? bio : '',
+					account_id: account_id ? account_id : '',
+					firstName: firstName ? firstName : '',
+					lastName: lastName ? lastName : '',
+					email: email ? email : ''
 				})
 			}).catch( err => {
 				console.log(err)

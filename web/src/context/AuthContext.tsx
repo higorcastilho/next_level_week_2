@@ -7,10 +7,17 @@ import handleUser from './user.auth.context'
 interface AuthContextData {
 	authenticated: boolean
 	user: {
-		accId: number
+		userId: number
 		name: string
 		avatar: string
+		whatsapp: string
+		bio: string
+		account_id: number
+		firstName: string
+		lastName: string
+		email: string
 	}
+
 	signIn(email:string, password:string):Promise<void>
 	handleUserInfo():Promise<void>
 }
@@ -20,9 +27,15 @@ export const Context = createContext<AuthContextData>({} as AuthContextData)
 export const AuthProvider: React.FC = ( { children } ) => {
 
 	const [ user, setUser ] = useState({
-		accId: 0,
+		userId: 0,
 		name: '',
-		avatar: ''
+		avatar: '',
+		whatsapp: '',
+		bio: '',
+		account_id: 0,
+		firstName: '',
+		lastName: '',
+		email: ''
 	})
 
 	const [ authenticated, setAuthenticated ] = useState(false)
@@ -35,8 +48,31 @@ export const AuthProvider: React.FC = ( { children } ) => {
 	}
 
 	async function handleUserInfo() {
-		const { accId, name, avatar } = await handleUser()
-		setUser({accId, name, avatar})
+
+		const { 
+			userId,
+			name,
+			avatar,
+			whatsapp,
+			bio,
+			account_id,
+			firstName,
+			lastName,
+			email 
+		} = await handleUser()
+
+		setUser({
+			userId,
+			name,
+			avatar,
+			whatsapp,
+			bio,
+			account_id,
+			firstName,
+			lastName,
+			email 
+		})
+
 	}
 
 	return (

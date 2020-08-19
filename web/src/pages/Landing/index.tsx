@@ -21,7 +21,6 @@ import './styles.css'
 function Landing() {
 
 	const [ totalConnections, setTotalConnections ] = useState(0)
-
 	const [ userInfo, setUserInfo ] = useState({
 		name: '',
 		avatar: ''
@@ -31,11 +30,14 @@ function Landing() {
 
 	useEffect(() => { 
 
-		async function authUser() {
+		async function authorizedUser() {
 			await handleUserInfo()
-			await setUserInfo(user)
+			setUserInfo({
+				name: user.name, 
+				avatar: user.avatar
+			})
 		}
-		authUser()
+		authorizedUser()
 	}, [userInfo])
 
 	async function handleLogout() {
@@ -46,7 +48,7 @@ function Landing() {
 	return (
 		<div id="page-landing" >
 			<div id="page-landing-content" className="container">
-				{	userInfo.name &&	<div id="profile-header">
+				{	userInfo.name  &&	<div id="profile-header">
 									<Link to="/profile">
 										<img src={userInfo.avatar} alt="Foto do usuário" />
 										{userInfo.name}

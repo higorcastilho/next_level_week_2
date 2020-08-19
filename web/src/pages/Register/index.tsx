@@ -15,7 +15,7 @@ function Register() {
 
 	const history = useHistory()
 
-	const [ name, setName ] = useState('')
+	const [ firstName, setFirstName ] = useState('')
 	const [ lastName, setLastName ] = useState('')
 	const [ email, setEmail ] = useState('')
 	const [ password, setPassword ] = useState('')
@@ -37,7 +37,7 @@ function Register() {
 		e.preventDefault()
 		api.post('accounts', {
 
-			name,
+			firstName,
 			lastName,
 			email,
 			password
@@ -67,9 +67,9 @@ function Register() {
 								type="text" 
 								placeholder="Nome"
 								required
-								value={name}
+								value={firstName}
 								onChange={ e => {
-									setName(e.target.value)
+									setFirstName(e.target.value)
 								}}
 								onKeyUp={handleButtonColor} 
 							/>

@@ -1,5 +1,7 @@
-import React, { useState, FormEvent, useEffect } from 'react'
+import React, { useState, FormEvent, useEffect, useContext } from 'react'
 import { useHistory, Link } from 'react-router-dom'
+
+import { Context } from '../../context/AuthContext'
 
 import PageHeader from '../../components/PageHeader'
 import Input from '../../components/Input'
@@ -22,29 +24,37 @@ import './styles.css'
 
 function Profile() {
 
-	useEffect( () => {
-		const isAuth = isAuthenticated()
-		const token = JSON.stringify(getToken())
-
-		if (isAuth) {
-			const accountId = jwtDecode(token)
-			api.get(`accounts/${accountId}`).then( res => {
-
-				setName(res.data[0].name)
-				setAvatar(res.data[0].avatar)
-				setWhatsapp(res.data[0].whatsapp)
-				setBio(res.data[0].bio)
-			})
-		}
-	}, [])
-
-
 	const history = useHistory()
 
+	const { user, handleUserInfo } = useContext(Context)
+
+	const [ userId, setUserId ] = useState(0)
 	const [ name, setName ] = useState('')
 	const [ avatar, setAvatar ] = useState('')
 	const [ whatsapp, setWhatsapp ] = useState('')
 	const [ bio, setBio ] = useState('')
+	const [ account_id, setAccount_id ] = useState(0)
+	const [ firstName, setFirstName ] = useState('')
+	const [ lastName, setLastName ] = useState('')
+	const [ email, setEmail ] = useState('')
+
+	useEffect(() => {
+		
+		async function authorizedUser() {
+			await handleUserInfo()
+				setUserId(user.userId)
+				setName(user.name)
+				setAvatar(user.avatar)
+				setWhatsapp(user.whatsapp)
+				setBio(user.bio)
+				setAccount_id(user.account_id)
+				setFirstName(user.firstName)
+				setLastName(user.lastName)
+				setEmail(user.email)
+		}
+
+		authorizedUser()
+	}, [])
 
 	function handleUpdateUser(e: FormEvent) {
 		e.preventDefault()
@@ -54,15 +64,37 @@ function Profile() {
 
 		if (isAuth) {
 			const accountId = jwtDecode(token)
-			api.post(`accounts/${accountId}`, {
+			api.post(`accounts-user/${accountId}`, {
 				name,
 				avatar,
 				whatsapp,
 				bio
-			}).then( () => {
-				alert('Dados atualizados com sucesso!')
+			}).then(() => {
+				alert('Dados da plataforma atualizados com sucesso!')
 				history.push('/profile')
-			}).catch( err => {
+			}).catch(err => {
+				alert('Erro ao atualizar dados')
+				console.log(err)
+			})
+		}
+	}
+
+	function handleUpdateAccount(e: FormEvent) {
+		e.preventDefault()
+
+		const isAuth = isAuthenticated()
+		const token = JSON.stringify(getToken())
+
+		if (isAuth) {
+			const accountId = jwtDecode(token)
+			api.post(`accounts/${accountId}`, {
+				firstName,
+				lastName,
+				email
+			}).then(() => {
+				alert('Dados de conta atualizados com sucesso!')
+				history.push('/profile')
+			}).catch(err => {
 				alert('Erro ao atualizar dados')
 				console.log(err)
 			})
@@ -71,7 +103,7 @@ function Profile() {
 
 	return (
 		<div id="page-teacher-form" className="container">
-			<header className="teacher-profile-header" style={{backgroundImage: "url(" + successBackground + ")"}}>
+			<header className="teacher-profile-header" style={{ backgroundImage: "url(" + successBackground + ")" }}>
 				<div className="top-bar-container-profile">
 					<Link to="/">
 						<img src={backIcon} alt="Voltar" />
@@ -80,11 +112,11 @@ function Profile() {
 					<img src={logoImg} alt="Proffy" />
 				</div>
 				<div className="teacher-photo">
-					<img src={avatar}/>
-					<FontAwesomeIcon 
-						icon={faCamera} 
+					<img src={avatar} />
+					<FontAwesomeIcon
+						icon={faCamera}
 						className="photo-button"
-						//onClick={}
+					//onClick={}
 					/>
 				</div>
 				<p>{name}</p>
@@ -93,37 +125,34 @@ function Profile() {
 			<main>
 				<form onSubmit={handleUpdateUser}>
 					<fieldset>
-						<legend>Seus dados</legend>
-							<Input 
-								name="name" 
-								label="Nome completo" 
-								value={name} 
-								onChange={ e => {
+						<legend>Dados na plataforma</legend>
+						<div className="user-data-inputs">
+							<Input
+								name="name"
+								label="Apelido"
+								value={name}
+								onChange={e => {
 									setName(e.target.value)
-								}}/>
-							<Input 
-								name="avatar" 
-								label="Avatar"
-								value={avatar} 
-								onChange={ e => {
-									setAvatar(e.target.value)
-							}}/>
-							<Input 
-								name="whatsapp" 
-								label="Whatsapp" 
-								value={whatsapp} 
-								onChange={ e => {
+								}} 
+							/>
+							<Input
+								name="whatsapp"
+								label="Whatsapp"
+								value={whatsapp}
+								onChange={e => {
 									setWhatsapp(e.target.value)
-							}}/>
-							<Textarea 
-								name="bio" 
-								label="Biografia"
-								value={bio} 
-								onChange={ e => {
-									setBio(e.target.value) 
-							}}/>
+								}} 
+							/>
+						</div>
+						<Textarea
+							name="bio"
+							label="Biografia"
+							value={bio}
+							onChange={e => {
+								setBio(e.target.value)
+							}} 
+						/>
 					</fieldset>
-
 					<footer>
 						<p>
 							<img src={warningIcon} alt="Aviso importante" />
@@ -131,7 +160,46 @@ function Profile() {
 							Preencha todos os dados
 						</p>
 						<button type="submit">
-							Salvar cadastro
+							Salvar alterações
+						</button>
+					</footer>
+				</form>
+				<form onSubmit={handleUpdateAccount} style={{marginTop: '2rem'}}>
+					<fieldset>
+						<legend>Dados da sua conta</legend>
+						<Input
+							name="firstName"
+							label="Seu nome"
+							value={firstName}
+							onChange={e => {
+								setFirstName(e.target.value)
+							}} 
+						/>
+						<Input
+							name="lastName"
+							label="Seu sobrenome"
+							value={lastName}
+							onChange={e => {
+								setLastName(e.target.value)
+							}} 
+						/>
+						<Input
+							name="email"
+							label="Seu email"
+							value={email}
+							onChange={e => {
+								setEmail(e.target.value)
+							}} 
+						/>
+					</fieldset>
+					<footer>
+						<p>
+							<img src={warningIcon} alt="Aviso importante" />
+							Importante! <br />
+							Preencha todos os dados
+						</p>
+						<button type="submit">
+							Salvar alterações
 						</button>
 					</footer>
 				</form>

@@ -86,4 +86,18 @@
 		margin-left: -3.6rem;
 		margin-bottom: 0.9rem;
 	}
+
+	.user-data-inputs {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.user-data-inputs > div {
+		max-width: 50%;
+	}
+
+	.user-data-inputs > div:nth-child(2n) {
+		margin-top: 0
+	}
 }

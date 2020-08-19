@@ -1,12 +1,69 @@
+#page-done-register #logo-container {
+	display: initial
+}
+
+#page-done-register {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	background: var(--color-primary);
+	background-size: 100%
+}
+
+#page-done-register img {
+	margin-top: 35%;
+	min-width: 100%;
+	height: 10rem;
+	color: var(--color-text-in-primary);
+	background: var(--color-primary);
+}
+
+#page-done-register h1 {
+	font: 2.4rem Archivo;
+	font-weight: 500;
+	font-size: 5rem;
+	line-height: 5.5rem;
+	margin-top: 1.8rem;
+	min-width: 100%;
+	text-align: center;
+	color: var(--color-title-in-primary);
+}
+
+#page-done-register h2 {
+	font: 2.4rem Archivo;
+	font-weight: 500;
+	font-size: 2rem;
+	line-height: 2.5rem;
+	margin-top: 2.5rem;
+	min-width: 100%;
+	text-align: center;
+	color: var(--color-title-in-primary);
+}
+
+#page-done-register button {
+	width: 50%;
+	height: 6rem;
+	margin: 0 auto;
+	background: var(--color-secondary);
+	font: 700 1.6rem Poppins;
+	cursor: pointer;
+	color: var(--color-button-text);
+	border: 0;
+	border-radius: 0.8rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	margin-top: 4rem
+}
+
 @media (min-width: 1100px) {
 	
 	#page-done-register {
-		width: 100vw;
-		height: 100vh;	
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--color-primary);
 	}
 
 	#page-done-register img {
@@ -23,17 +80,6 @@
 	#page-done-register button {
 		width: 25%;
 		height: 5.6rem;
-		margin: 0 auto;
-		background: var(--color-secondary);
-		font: 700 1.6rem Poppins;
-		cursor: pointer;
-		color: var(--color-button-text);
-		border: 0;
-		border-radius: 0.8rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-decoration: none;
 		margin-top: 1rem
 	}
 }
