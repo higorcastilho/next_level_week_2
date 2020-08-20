@@ -56,7 +56,7 @@ function Profile() {
 		authorizedUser()
 	}, [])
 
-	function handleUpdateUser(e: FormEvent) {
+	async function handleUpdateUser(e: FormEvent) {
 		e.preventDefault()
 
 		const isAuth = isAuthenticated()
@@ -64,7 +64,7 @@ function Profile() {
 
 		if (isAuth) {
 			const accountId = jwtDecode(token)
-			api.post(`accounts-user/${accountId}`, {
+			await api.post(`accounts-user/${accountId}`, {
 				name,
 				avatar,
 				whatsapp,
@@ -79,7 +79,7 @@ function Profile() {
 		}
 	}
 
-	function handleUpdateAccount(e: FormEvent) {
+	async function handleUpdateAccount(e: FormEvent) {
 		e.preventDefault()
 
 		const isAuth = isAuthenticated()
@@ -87,7 +87,7 @@ function Profile() {
 
 		if (isAuth) {
 			const accountId = jwtDecode(token)
-			api.post(`accounts/${accountId}`, {
+			await api.post(`accounts/${accountId}`, {
 				firstName,
 				lastName,
 				email

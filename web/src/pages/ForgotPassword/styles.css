@@ -1,0 +1,105 @@
+#page-forgot-pass {
+	color: var(--color-text-title);
+	background: var(--color-background);
+	height: 100vh
+}
+
+#page-forgot-pass-content > div {
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 0.5rem 2rem;
+	margin-bottom: 30%;
+}
+
+#page-forgot-pass-content > div > a {
+	height: 2.5rem;
+	transition: opacity 0.2s;
+}
+
+#page-forgot-pass-content > div > a {
+	opacity: 0.6;
+}
+
+
+#page-forgot-pass-content {
+	width: 30rem;
+	min-height: 100%;
+}
+
+.back-arrow-forgot-pass {
+	margin-top: 1rem;
+	font-size: 2em;
+	transform: scale(2,1);
+	color: var(--color-primary-lighter);
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.form-title {
+	font: 900 2.5rem Poppins;
+	margin-bottom: 1.4rem;
+}
+
+.form-title strong p { 
+	font-weight: bold;
+	max-width: 80%;
+	font-size: 3rem;
+}
+
+.form-title > p { 
+	font-size: 1.4rem;
+	font-weight: normal;
+	max-width: 90%;
+	margin-top: 1.5rem;
+}
+
+#page-forgot-pass main fieldset {
+	border: 0;
+}
+
+#page-forgot-pass main fieldset .input-block + .input-block  {
+	margin-top: -0.8rem
+}
+
+button {
+	width: 100%;
+	height: 5.6rem;
+	/*background: var(--color-line-in-white);*/
+	font: 700 1.6rem Poppins;
+	cursor: pointer;
+	color: var(--color-button-text);
+	border: 0;
+	border-radius: 0.8rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	margin-top: 3.2rem
+}
+
+@media (min-width: 1100px) {
+
+	#page-forgot-pass {
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#page-forgot-pass-content {
+		min-width: 50%;
+		display: initial
+	}
+
+	#page-forgot-pass-content:nth-child(1n) {
+		padding: 0 10%; 
+	}
+
+	.form-title strong p { 
+		font-size: 4rem;
+	}
+}
