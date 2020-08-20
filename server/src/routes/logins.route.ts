@@ -5,5 +5,6 @@ const loginsController = new LoginsController()
 const routes = express.Router()
 
 routes.post('/login', loginsController.login)
+routes.post('/forgot-password', loginsController.forgotPassword)
 
 export default routes

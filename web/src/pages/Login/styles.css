@@ -57,7 +57,8 @@
 }
 
 .forgot-password a {
-	text-decoration: none
+	text-decoration: none;
+	color: var(--color-text-complement)
 }
 
 button {

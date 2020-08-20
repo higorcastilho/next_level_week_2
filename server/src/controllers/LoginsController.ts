@@ -35,4 +35,8 @@ export default class LoginsController {
 
 		res.json({ "type": "bearer", "token": generate })
 	}
+
+	async forgotPassword() {
+		
+	}
 }
