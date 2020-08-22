@@ -11,6 +11,7 @@ const {
 
 const nodemailer = require('nodemailer')
 
+//using gmail to send you email
 /*const transporter = nodemailer.createTransport({
 	host: NODEMAILER_HOST,
 	port: NODEMAILER_PORT,
@@ -24,6 +25,7 @@ const nodemailer = require('nodemailer')
 	}
 })*/
 
+//using Mailtrap
 var transporter = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
   port: 2525,
