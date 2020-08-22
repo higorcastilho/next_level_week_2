@@ -11,7 +11,7 @@ const {
 
 const nodemailer = require('nodemailer')
 
-//using gmail to send you email
+//using gmail to send your email
 /*const transporter = nodemailer.createTransport({
 	host: NODEMAILER_HOST,
 	port: NODEMAILER_PORT,
