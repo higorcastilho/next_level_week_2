@@ -37,7 +37,7 @@ const sendMail = async function run(email:string, token:string) {
 	try {
 		const message = await transporter.sendMail({
 			html: `
-				<p>Para redefinir sua senha, utilize este código para resetar sua senha <em>${token}</em>.</p><br>
+				<p>Para redefinir sua senha, utilize este código <em>${token}</em>.</p><br>
 				<p>Se você não solicitou este email, por favor ignore-o.</p>
 			`,
 			subject: 'PROFFY - Redefinição de senha',
