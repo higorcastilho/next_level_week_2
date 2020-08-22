@@ -42,9 +42,12 @@ export const AuthProvider: React.FC = ( { children } ) => {
 
 	async function signIn(email:string, password:string) {
 
-		await handleLogin(email, password)
-		
-		setAuthenticated(true)
+		const { signed } = await handleLogin(email, password)
+		if (signed) {
+			setAuthenticated(true)
+		} else {
+			setAuthenticated(false)
+		}
 	}
 
 	async function handleUserInfo() {

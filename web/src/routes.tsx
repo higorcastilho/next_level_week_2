@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import DoneRegister from './pages/DoneRegister'
 import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 interface PrivateRouteProps extends RouteProps {
 	component: any
@@ -42,6 +43,7 @@ function Routes() {
 			<Route path="/register" component={Register} />
 			<Route path="/done-register" component={DoneRegister} />
 			<Route path="/forgot-password" component={ForgotPassword} />
+			<Route path="/reset-password" component={ResetPassword} />
 			
 			<PrivateRoute path="/study" component={TeacherList} />
 			<PrivateRoute path="/give-classes" component={TeacherForm} />

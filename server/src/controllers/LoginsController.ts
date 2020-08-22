@@ -1,6 +1,10 @@
 import JWT from 'jsonwebtoken'
 import db from '../database/connection'
 import hash from '../utils/hash'
+import crypto from 'crypto'
+
+const { sendMail, verifyTransporter } =   require('../utils/forgotPasswordHandler/index.nodemailer')
+
 
 export default class LoginsController {
 	async login(req, res) {
@@ -36,7 +40,67 @@ export default class LoginsController {
 		res.json({ "type": "bearer", "token": generate })
 	}
 
-	async forgotPassword() {
-		
+	async forgotPassword(req, res) {
+
+		const { email } = req.body
+
+		try {
+
+			const account = await db('accounts').where('email', email)
+
+			if (!account) {
+				return res.status(400).send({ error: 'User not found' })
+			}
+
+			const token = crypto.randomBytes(20).toString('hex')
+
+			const now =  new Date()
+			now.setHours(now.getHours() + 1)
+
+			await db('accounts')
+				.where('id', account[0].id)
+				.update({ password_reset_token: token, password_reset_expires: now })
+
+			sendMail(email, token)
+
+			res.send()
+
+		} catch (err) {
+			res.status(400).send({ error: 'Error on forgot password. Please, try again.' })
+		}
+
+	}
+
+	async resetPassword(req, res) {
+		const { email, password, token } = req.body
+
+		try {
+			const account = await db('accounts').where('email', email)
+
+			if (!account) {
+				return res.status(400).send({ error: 'User not found' })
+			} 
+
+			if (account[0].password_reset_token !== token) {
+				return res.status(400).send({ error: 'Invalid token.' })
+			}
+
+			const now = new Date()
+
+			if (now > account[0].password_reset_expires) {
+				return res.status(400).send({ error: 'Token expired.' })
+			}
+
+			const hashedPassword = await hash.encrypt(password)
+
+			await db('accounts')
+				.where('email', email)
+				.update({ password: hashedPassword })
+
+			res.send()
+
+		} catch (err) {
+			res.status(400).send({ error: 'Invalid link. Please, try get a new email link.' })
+		}
 	}
 }

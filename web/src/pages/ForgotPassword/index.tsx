@@ -2,6 +2,8 @@ import React, { useState, FormEvent, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../../context/AuthContext'
 import { useHistory } from 'react-router-dom'
+import api from '../../services/api'
+
 
 import Input from '../../components/Input'
 import CommonCase from '../../components/CommonCase'
@@ -15,12 +17,8 @@ import logoImg from '../../assets/images/logo.svg'
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 import successCheck from '../../assets/images/icons/success-check-icon.svg'
 
-function Login() { 
-
-
-	const { authenticated, signIn } = useContext(Context)
+function ForgotPassword() { 
 	
-
 	const history = useHistory()
 
 	const [ email, setEmail ] = useState('')
@@ -43,6 +41,15 @@ function Login() {
 		else setIsChecked(true)
 	}
 
+	async function handleForgotPassword(e: FormEvent) {
+		e.preventDefault()
+		
+		await api.post('forgot-password', {
+			email
+		})
+		history.push('/reset-password')
+	}
+
 	return (
 		<div id="page-forgot-pass">
 			<div id="page-forgot-pass-content" >
@@ -59,7 +66,7 @@ function Login() {
 					<p>Não esquenta, vamos dar um jeito nisso.</p>
 				</header>
 				<main>
-					<form /*onSubmit={  }*/>
+					<form onSubmit={ handleForgotPassword }>
 						<fieldset>
 							<Input 
 								name="email" 
@@ -84,4 +91,4 @@ function Login() {
 	)
 }
 
-export default Login
+export default ForgotPassword

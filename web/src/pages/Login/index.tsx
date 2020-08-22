@@ -43,8 +43,14 @@ function Login() {
 
 	async function handleLogin(e: FormEvent) {
 		e.preventDefault()
+
 		await signIn(email, password)
-		history.push('/')
+		if (authenticated) {
+			history.push('/')
+		} else {
+			console.log('Senha ou e-mail invalido.')
+			history.push('/login')
+		}
 	}
 
 	return (
