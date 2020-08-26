@@ -91,8 +91,8 @@ export default class AccountsController {
 			})
 
 			await db('users').insert({
-				name: '',
-				avatar: '',
+				name: 'Nome',
+				avatar: 'Avatar',
 				whatsapp: '',
 				bio: '',
 				account_id: account_info[0]

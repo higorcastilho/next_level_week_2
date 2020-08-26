@@ -102,7 +102,7 @@ function TeacherList() {
 			</PageHeader>
 
 			<main>
-				{teachers.map((teacher: Teacher, index: number) => {
+				{teachers && teachers.map((teacher: Teacher, index: number) => {
 					return <TeacherItem key={index} teacher={teacher} />
 				})}
 			</main>

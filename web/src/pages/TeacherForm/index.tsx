@@ -1,5 +1,4 @@
 import React, { useState, FormEvent, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { Context } from '../../context/AuthContext'
 
@@ -16,7 +15,6 @@ import api from '../../services/api'
 
 function TeacherForm() {
 
-	const history = useHistory()
 	const { user: { account_id } } = useContext(Context)
 
 	const [subject, setSubject] = useState('')
@@ -51,7 +49,6 @@ function TeacherForm() {
 			schedule: scheduleItems
 		}).then(() => {
 			alert('Cadastro realizado com sucesso!')
-			history.push('/')
 		}).catch(e => {
 			alert('Erro ao cadastrar')
 			console.log(e)
