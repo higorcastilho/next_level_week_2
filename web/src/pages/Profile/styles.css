@@ -69,6 +69,44 @@
 	color: var(--color-title-in-primary);
 }
 
+.avatar-modal {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center
+}
+.avatar-modal-buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.v-button {
+	cursor: pointer;
+	font-size: 4.5rem;
+	padding: 1rem;
+	background: var(--color-secondary);
+	color: var(--color-title-in-primary);
+	min-width: 14rem;
+	border-radius: .4rem;
+	margin-top: .5rem;
+	margin-left: .6rem
+}
+
+.x-button {
+	cursor: pointer;
+	font-size: 4.5rem;
+	padding: 1rem;
+	background: var(--color-primary-lighter);
+	color: var(--color-title-in-primary);
+	min-width: 8rem;
+	margin-right: 1rem;
+	border-radius: .4rem;
+	margin-top: .5rem
+}
+
 @media (min-width: 1100px) {
 	.top-bar-container-profile {
 		padding: 1.2rem 9rem;
@@ -99,5 +137,9 @@
 
 	.user-data-inputs > div:nth-child(2n) {
 		margin-top: 0
+	}
+
+	.v-button {
+		margin-right: 0.5rem
 	}
 }

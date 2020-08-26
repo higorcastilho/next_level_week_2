@@ -14,7 +14,7 @@ import logoImg from '../../assets/images/logo.svg'
 import backIcon from '../../assets/images/icons/back.svg'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons"
+import { faCamera, faTimes, faCheck } from "@fortawesome/free-solid-svg-icons"
 
 import api from '../../services/api'
 import jwtDecode from '../../services/jwtDecode'
@@ -27,6 +27,9 @@ function Profile() {
 	const history = useHistory()
 
 	const { user, handleUserInfo } = useContext(Context)
+
+	const [ toggleModal, setToggleModal ] = useState('none')
+	const [ showPage, setShowPage ] = useState('')
 
 	const [ userId, setUserId ] = useState(0)
 	const [ name, setName ] = useState('')
@@ -103,7 +106,44 @@ function Profile() {
 
 	return (
 		<div id="page-teacher-form" className="container">
-			<header className="teacher-profile-header" style={{ backgroundImage: "url(" + successBackground + ")" }}>
+			<div className="avatar-modal" style={{ display: toggleModal}}>
+				<div>
+					<Input
+						name="avatar"
+						label=""
+						placeholder="Url do seu avatar"
+						value={avatar}
+						onChange={e => {
+							setAvatar(e.target.value)
+						}} 
+					/>
+					<div className="avatar-modal-buttons">
+						<FontAwesomeIcon
+							icon={faCheck}
+							className="v-button"
+							onClick={ () => {
+								setToggleModal('none')
+								setShowPage('') 
+								}
+							}
+						/>
+						<FontAwesomeIcon
+							icon={faTimes}
+							className="x-button"
+							onClick={ () => {
+								setToggleModal('none')
+								setShowPage('') 
+								setAvatar('')
+								}
+							}
+						/>
+					</div>
+				</div>
+			</div>
+			<header 
+				className="teacher-profile-header" 
+				style={{ backgroundImage: "url(" + successBackground + ")" }}
+			>
 				<div className="top-bar-container-profile">
 					<Link to="/">
 						<img src={backIcon} alt="Voltar" />
@@ -116,13 +156,17 @@ function Profile() {
 					<FontAwesomeIcon
 						icon={faCamera}
 						className="photo-button"
-					//onClick={}
+					onClick={ () => {
+						setToggleModal('')
+						setShowPage('none') 
+						}
+					}
 					/>
 				</div>
 				<p>{name}</p>
 				<legend>Matemática - Biologia - Química</legend>
 			</header>
-			<main>
+			<main style={{display: showPage}}>
 				<form onSubmit={handleUpdateUser}>
 					<fieldset>
 						<legend>Dados na plataforma</legend>
@@ -134,6 +178,7 @@ function Profile() {
 								onChange={e => {
 									setName(e.target.value)
 								}} 
+								required
 							/>
 							<Input
 								name="whatsapp"
@@ -142,6 +187,7 @@ function Profile() {
 								onChange={e => {
 									setWhatsapp(e.target.value)
 								}} 
+								required
 							/>
 						</div>
 						<Textarea
@@ -151,6 +197,7 @@ function Profile() {
 							onChange={e => {
 								setBio(e.target.value)
 							}} 
+							required
 						/>
 					</fieldset>
 					<footer>
