@@ -43,10 +43,9 @@ function TeacherForm() {
 			setScheduleItems(updatedScheduleItem)
 	}
 
-	function handleCreateClass(e: FormEvent) {
-		e.preventDefault()
+	async function handleCreateClass(id: number) {
 
-		api.post(`classes/${account_id}`, {
+		await api.post(`classes/${id}`, {
 			subject,
 			cost: Number(cost),
 			schedule: scheduleItems
@@ -66,7 +65,12 @@ function TeacherForm() {
 				description="O primeiro passo é preencher este formulário de inscrição"
 			/>
 			<main>
-				<form onSubmit={handleCreateClass}>
+					<form onSubmit={ (e:FormEvent) => {
+								e.preventDefault()
+								handleCreateClass(account_id)
+							} 
+						}
+					>
 					<fieldset>
 						<legend>Sobre a aula</legend>
 							<Select 

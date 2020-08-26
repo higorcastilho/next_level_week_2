@@ -13,10 +13,58 @@ export default class ClassesController {
 	async index(req: Req, res: Res) {
 		const filters = req.query
 
+		async function paginatedResults(model:any) {
+
+			const page = parseInt(req.query.page)
+			const limit = parseInt(req.query.limit)
+
+			const startIndex = ( page - 1 ) * limit
+			const endIndex = page * limit
+
+			const results = {
+				next : {},
+				previous: {},
+				results: {}
+			}
+
+			if (endIndex < model.length) {
+
+				results.next = {
+					page: page + 1,
+					limit
+				}
+
+			}
+
+			if (startIndex > 0) {
+
+				results.previous = {
+					page: page - 1,
+					limit
+				}
+			}
+
+			try {
+
+				results.results = await model
+					.select('*')
+					.from('classes')
+					.join('accounts', 'classes.account_id', 'accounts.id' )
+					.join('users', 'users.account_id', 'accounts.id')
+					.limit(limit)
+					.offset(startIndex)
+
+				return results
+			} catch (err) {
+				res.status(500).json({ message: err.message })
+			}
+		}
+
 		if (!filters.week_day || !filters.subject || !filters.time) {
-			return res.status(400).json({
-				error: 'Missing filters to search classes'
-			})
+
+			const paginated = await paginatedResults(db)
+
+			res.json(paginated)
 		}
 
 		const timeInMinutes = convertHourToMinutes(filters.time as string)
@@ -40,6 +88,7 @@ export default class ClassesController {
 
 	async create(req: Req, res: Res) {
 		const { subject, cost, schedule } = req.body
+		const { id } = req.params
 
 		const trx = await db.transaction()
 
@@ -48,7 +97,7 @@ export default class ClassesController {
 			const insertedClassesIds = await trx('classes').insert({
 				subject,
 				cost,
-				account_id: req.params.id
+				account_id: id
 			})
 
 			const class_id = insertedClassesIds[0]

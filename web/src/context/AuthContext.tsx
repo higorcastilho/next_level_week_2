@@ -40,16 +40,6 @@ export const AuthProvider: React.FC = ( { children } ) => {
 
 	const [ authenticated, setAuthenticated ] = useState(false)
 
-	async function signIn(email:string, password:string) {
-
-		const { signed } = await handleLogin(email, password)
-		if (signed) {
-			setAuthenticated(true)
-		} else {
-			setAuthenticated(false)
-		}
-	}
-
 	async function handleUserInfo() {
 
 		const { 
@@ -77,6 +67,18 @@ export const AuthProvider: React.FC = ( { children } ) => {
 		})
 
 	}
+
+	async function signIn(email:string, password:string) {
+
+		const { signed } = await handleLogin(email, password)
+		if (signed) {
+			setAuthenticated(true)
+		} else {
+			setAuthenticated(false)
+		}
+	}
+
+	
 
 	return (
 		<Context.Provider value={ { authenticated, user, signIn, handleUserInfo } }>

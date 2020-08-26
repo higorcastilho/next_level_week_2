@@ -1,5 +1,5 @@
 ### Running the migration
-##### Run it to have the sqlite database avaiable inside your project
+##### Run this to get the sqlite database available inside your project
 ```
 npm run knex:migrate
 ```

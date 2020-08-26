@@ -11,6 +11,7 @@ export interface Teacher {
 	bio: string
 	cost: number
 	id: number
+	account_id: number
 	name: string
 	subject: string
 	whatsapp: string
