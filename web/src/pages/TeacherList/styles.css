@@ -28,6 +28,37 @@
 	margin-top: 3.2rem;
 }
 
+.pagination-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin-top: 3rem
+}
+
+.pagination-left-button {
+	cursor: pointer;
+	font-size: 4.5rem;
+	padding: 1rem;
+	background: var(--color-secondary);
+	color: var(--color-title-in-primary);
+	min-width: 5rem;
+	border-radius: 50%;
+	margin-top: .5rem;
+	margin-left: .6rem
+}
+
+.pagination-right-button {
+	cursor: pointer;
+	font-size: 4.5rem;
+	padding: 1rem;
+	background: var(--color-secondary);
+	color: var(--color-title-in-primary);
+	min-width: 5rem;
+	border-radius: 50%;
+	margin-top: .5rem;
+	margin-left: .6rem
+}
+
 #page-teachers button:hover {
 	background: var(--color-secondary-dark);
 }
@@ -35,6 +66,10 @@
 #page-teacher-list main {
 	margin: 3.2rem auto;
 	width: 90%;
+}
+
+#footer-pagination-buttons {
+	margin-bottom: 8rem
 }
 
 @media (min-width: 700px) {
@@ -53,6 +88,21 @@
 	#search-teachers .input-block + .input-block,
 	#search-teachers .select-block + .select-block {
 		margin-top: 0;
+	}
+
+	.pagination-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 6rem
+	}
+
+	.pagination-left-button {
+		margin-right: 2rem
+	}
+
+	.pagination-right-button {
+		margin-left: 2rem
 	}
 
 	#page-teacher-list main {

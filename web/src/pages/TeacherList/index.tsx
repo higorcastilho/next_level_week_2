@@ -5,6 +5,9 @@ import TeacherItem, { Teacher } from '../../components/TeacherItem'
 import Input from '../../components/Input'
 import Select from '../../components/Select'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
 import api from '../../services/api'
 
 import './styles.css'
@@ -13,17 +16,51 @@ function TeacherList() {
 
 	const [ teachers, setTeachers ] = useState([])
 
+	const [xPos, setXPos] = useState(0)
+	const [yPos, setYPos] = useState(0)
+
+	const [page, setPage] = useState(1)
+	const [limit, setLimit] = useState(3)
+	const [totalClasses, setTotalClasses] = useState(0)
+
 	const [ subject, setSubject ] = useState('') 
 	const [ week_day, setWeekDay ] = useState('')
 	const [ time, setTime ] = useState('')
 
-	useEffect( () => {
+	function handlePreviousButton() {
+		
+		if (page === 1) {
+			return 
+		}
+
+		window.scrollTo(500, 500)
+		setPage(page - 1)
+	}
+
+	function handleNextButton() {
+
+		if (page === Math.ceil(totalClasses / limit)) {
+			return
+		}
+		window.scrollTo(500, 500)
+		setPage(page + 1)
+	}
+
+	useEffect( () => {	
+
+		//Scroll to top results on classes list
+		const rect:any = document.querySelector('main')
+		const position = rect.getBoundingClientRect()
+		const xPos = position.x
+		const yPos = position.y
+		setXPos(xPos)
+		setXPos(yPos)
 
 		async function getTeachers() {
 			const result = await api.get('classes', {
 				params: {
-					page: 1, 
-					limit: 10
+					page, 
+					limit
 				}
 			})
 
@@ -32,10 +69,11 @@ function TeacherList() {
 
 		getTeachers().then( res => {
 			setTeachers(res.data.results)
+			setTotalClasses(res.data.total)
+			console.log(res.data)
 		})
 
-	}, [])
-
+	}, [page])
 
 	async function searchTeachers(e: FormEvent) {
 		e.preventDefault()
@@ -101,11 +139,40 @@ function TeacherList() {
 				</form>
 			</PageHeader>
 
+			<div className="pagination-container">
+				<FontAwesomeIcon
+					icon={faChevronLeft}
+					className="pagination-left-button"
+					onClick={handlePreviousButton}
+				/>
+				Página { page } de { Math.ceil(totalClasses / limit) }
+				<FontAwesomeIcon
+					icon={faChevronRight}
+					className="pagination-right-button"
+					onClick={handleNextButton}
+				/>
+
+			</div>
+
 			<main>
 				{teachers && teachers.map((teacher: Teacher, index: number) => {
 					return <TeacherItem key={index} teacher={teacher} />
 				})}
 			</main>
+			<div id="footer-pagination-buttons" className="pagination-container">
+				<FontAwesomeIcon
+					icon={faChevronLeft}
+					className="pagination-left-button"
+					onClick={handlePreviousButton}
+				/>
+				Página { page } de { Math.ceil(totalClasses / limit) }
+				<FontAwesomeIcon
+					icon={faChevronRight}
+					className="pagination-right-button"
+					onClick={handleNextButton}
+				/>
+
+			</div>
 		</div>
 	)
 }

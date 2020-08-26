@@ -24,7 +24,8 @@ export default class ClassesController {
 			const results = {
 				next : {},
 				previous: {},
-				results: {}
+				results: {},
+				total: ''
 			}
 
 			if (endIndex < model.length) {
@@ -33,7 +34,6 @@ export default class ClassesController {
 					page: page + 1,
 					limit
 				}
-
 			}
 
 			if (startIndex > 0) {
@@ -53,6 +53,9 @@ export default class ClassesController {
 					.join('users', 'users.account_id', 'accounts.id')
 					.limit(limit)
 					.offset(startIndex)
+
+				const allClasses = await model.select('*').from('classes')
+				results.total = allClasses.length 
 
 				return results
 			} catch (err) {
