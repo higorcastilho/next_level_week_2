@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 
-const encrypt = async pass => {
+const encrypt = async (pass) => {
 	const encrypted = bcrypt.hash(pass, 10)
 	return encrypted
 }

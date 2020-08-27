@@ -9,6 +9,9 @@ import './styles.css'
 interface PageHeaderProps {
 	title: string,
 	description?: string
+	emoji?: string
+	emojiText?: string
+
 }
 
 const PageHeader: React.FC<PageHeaderProps> = (props) => {
@@ -22,8 +25,14 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
 			</div>
 			<div className="header-content">
 				<strong>{props.title}</strong>
-				{ props.description && <p>{props.description}</p> }
-
+				<div className="header-content-footer">
+					{ props.description && <p>{props.description}</p> }
+					{ props.emoji &&	<div id="emoji-corner">
+											<img src={props.emoji}/>
+											<p>{props.emojiText}</p>
+										</div> 
+					}
+				</div>
 				{props.children}
 			</div>
 		</header>

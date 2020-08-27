@@ -8,6 +8,7 @@ import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
 
 import warningIcon from '../../assets/images/icons/warning.svg'
+import rocket from '../../assets/images/icons/rocket.svg'
 
 import './styles.css'
 
@@ -60,6 +61,8 @@ function TeacherForm() {
 			<PageHeader 
 				title="Que incrível que você quer dar aulas."
 				description="O primeiro passo é preencher este formulário de inscrição"
+				emoji={rocket}
+				emojiText="Prepare-se! Vai ser o máximo."
 			/>
 			<main>
 					<form onSubmit={ (e:FormEvent) => {
