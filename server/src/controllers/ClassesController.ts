@@ -1,6 +1,7 @@
 import { Req, Res } from 'express'
-import db from '../database/connection'
 import convertHourToMinutes from '../utils/convertHourToMinutes'
+
+const ClassesRepository = require('../repositories/classesRepository')
 
 interface ScheduleItem {
 	week_day: number
@@ -13,7 +14,7 @@ export default class ClassesController {
 	async index(req: Req, res: Res) {
 		const filters = req.query
 
-		async function paginatedResults(model:any) {
+		async function paginatedResults() {
 
 			const page = parseInt(req.query.page)
 			const limit = parseInt(req.query.limit)
@@ -28,7 +29,7 @@ export default class ClassesController {
 				total: ''
 			}
 
-			if (endIndex < model.length) {
+			if (endIndex < 10/*model.length*/) {
 
 				results.next = {
 					page: page + 1,
@@ -46,15 +47,9 @@ export default class ClassesController {
 
 			try {
 
-				results.results = await model
-					.select('*')
-					.from('classes')
-					.join('accounts', 'classes.account_id', 'accounts.id' )
-					.join('users', 'users.account_id', 'accounts.id')
-					.limit(limit)
-					.offset(startIndex)
+				results.results = await ClassesRepository.paginatedResults(limit, startIndex)
 
-				const allClasses = await model.select('*').from('classes')
+				const allClasses = await ClassesRepository.numOfClasses()
 				results.total = allClasses.length 
 
 				return results
@@ -65,25 +60,14 @@ export default class ClassesController {
 
 		if (!filters.week_day || !filters.subject || !filters.time) {
 
-			const paginated = await paginatedResults(db)
+			const paginated = await paginatedResults()
 
 			res.json(paginated)
 		}
 
 		const timeInMinutes = convertHourToMinutes(filters.time as string)
 		
-		const classes = await db('classes')
-			.whereExists(function() {
-				this.select('class_schedule.*')
-					.from('class_schedule')
-					.whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-					.whereRaw('`class_schedule`.`week_day` = ?? ', [Number(filters.week_day)])
-					.whereRaw('`class_schedule`.`from` <= ?? ', [timeInMinutes])
-					.whereRaw('`class_schedule`.`to` > ?? ', [timeInMinutes])
-			})
-			.where('classes.subject', '=', filters.subject as string)
-			.join('users', 'classes.user_id', '=', 'users.id')
-			.select(['classes.*', 'users.*'])
+		const classes = await ClassesRepository.classesFilter(filters.week_day, filters.subject, timeInMinutes)
 			
 		return res.json(classes)
 
@@ -93,15 +77,9 @@ export default class ClassesController {
 		const { subject, cost, schedule } = req.body
 		const { id } = req.params
 
-		const trx = await db.transaction()
-
 		try {
 			
-			const insertedClassesIds = await trx('classes').insert({
-				subject,
-				cost,
-				account_id: id
-			})
+			const insertedClassesIds = await ClassesRepository.createClasses(subject, cost, id)
 
 			const class_id = insertedClassesIds[0]
 
@@ -114,15 +92,11 @@ export default class ClassesController {
 				}
 			})
 
-			await trx('class_schedule').insert(classSchedule)
-
-			await trx.commit()
+			await ClassesRepository.createClassSchedule(classSchedule)
 
 			return res.status(201).send('Class successfuly created')
 
 		} catch(e) {
-
-			trx.rollback()
 
 			return res.status(400).json({
 				error: 'Unexpected error while creating new class'
