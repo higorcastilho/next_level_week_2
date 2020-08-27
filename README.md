@@ -11,4 +11,4 @@
 - Editable user profile page
 - Lading page with user header photo, name and logout button
 - Password recovery
-
+- Paginated API to classes list
