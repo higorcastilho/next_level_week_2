@@ -12,7 +12,7 @@ const {
 const nodemailer = require('nodemailer')
 
 //using gmail to send your email
-/*const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
 	host: NODEMAILER_HOST,
 	port: NODEMAILER_PORT,
 	secure: false,
@@ -23,17 +23,18 @@ const nodemailer = require('nodemailer')
 	tls: {
 		rejectUnauthorized: false
 	}
-})*/
+})
 
 //using Mailtrap
-var transporter = nodemailer.createTransport({
+
+/*var transporter = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
   port: 2525,
   auth: {
-    user: "07f8654729ed96",
-    pass: "b7b8a5bbb58f7f"
+    user: "8609e137918c08",
+    pass: "040d26b7136ef9"
   }
-});
+});*/
 
 const sendMail = async function run(email:string, token:string) {
 	try {

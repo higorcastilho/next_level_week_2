@@ -1,18 +1,16 @@
 import JWT from 'jsonwebtoken'
-import db from '../database/connection'
 import hash from '../utils/hash'
 import crypto from 'crypto'
 
 const { sendMail, verifyTransporter } =   require('../utils/forgotPasswordHandler/index.nodemailer')
+const LoginsRepository = require('../repositories/loginsRepository')
 
 
 export default class LoginsController {
 	async login(req, res) {
 		const { email, password } = req.body
 
-		const userData = await db('accounts').where({
-			email
-		})
+		const userData = await LoginsRepository.login(email)
 
 		const passwordOk = await hash.compare(password, userData[0].password)
 		
@@ -41,12 +39,10 @@ export default class LoginsController {
 	}
 
 	async forgotPassword(req, res) {
-
 		const { email } = req.body
-
 		try {
 
-			const account = await db('accounts').where('email', email)
+			const account = await LoginsRepository.verifyIfEmailExists(email)
 
 			if (!account) {
 				return res.status(400).send({ error: 'User not found' })
@@ -57,9 +53,7 @@ export default class LoginsController {
 			const now =  new Date()
 			now.setHours(now.getHours() + 1)
 
-			await db('accounts')
-				.where('id', account[0].id)
-				.update({ password_reset_token: token, password_reset_expires: now })
+			await LoginsRepository.forgotPassword(account[0].id, token, now)
 
 			sendMail(email, token)
 
@@ -75,8 +69,8 @@ export default class LoginsController {
 		const { email, password, token } = req.body
 
 		try {
-			const account = await db('accounts').where('email', email)
 
+			const account = await LoginsRepository.verifyIfEmailExists(email)
 			if (!account) {
 				return res.status(400).send({ error: 'User not found' })
 			} 
@@ -93,10 +87,7 @@ export default class LoginsController {
 
 			const hashedPassword = await hash.encrypt(password)
 
-			await db('accounts')
-				.where('email', email)
-				.update({ password: hashedPassword })
-
+			await LoginsRepository.resetPassword(email, hashedPassword)
 			res.send()
 
 		} catch (err) {

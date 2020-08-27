@@ -1,13 +1,11 @@
-import db from '../database/connection'
 import hash from '../utils/hash'
+const AccountsRepository = require('../repositories/accountsRepository')
 
 export default class AccountsController {
 
 	async index(req, res) {
 		try {
-			const userInfo = await db('users').where({
-				account_id: req.params.id
-			}).innerJoin('accounts', 'users.account_id', '=', 'accounts.id')
+			const userInfo = await AccountsRepository.index(req.params.id)
 
 			const {
 				id, 
@@ -44,14 +42,16 @@ export default class AccountsController {
 
 	async update(req, res) {
 		try {
-			const userUpdated = await db('users')
-				.where({ account_id: req.params.id })
-				.update({ 
-					name: req.body.name,
-					avatar: req.body.avatar,
-					whatsapp: req.body.whatsapp,
-					bio: req.body.bio
-				})
+			const { id } = req.params
+			const { name, avatar, whatsapp, bio } = req.body
+
+			const userUpdated = await AccountsRepository.update( 
+				id, 
+				name,
+				avatar,
+				whatsapp,
+				bio 
+			)
 
 			res.json(userUpdated)
 
@@ -62,13 +62,16 @@ export default class AccountsController {
 
 	async updateAccountData(req, res) {
 		try {
-			const userUpdated = await db('accounts')
-				.where({ id: req.params.id })
-				.update({ 
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
-					email: req.body.email,
-				})
+
+			const { id } = req.params
+			const { firstName, lastName, email } = req.body
+
+			const userUpdated = await AccountsRepository.updateAccountData(
+				id,
+				firstName,
+				lastName,
+				email
+			)
 
 			res.json(userUpdated)
 
@@ -83,20 +86,12 @@ export default class AccountsController {
 
 			const hashedPassword = await hash.encrypt(password)
 
-			const account_info = await db('accounts').insert({
-				firstName, 
+			const account_info = await AccountsRepository.create(
+				firstName,
 				lastName,
 				email,
-				password: hashedPassword
-			})
-
-			await db('users').insert({
-				name: 'Nome',
-				avatar: 'Avatar',
-				whatsapp: '',
-				bio: '',
-				account_id: account_info[0]
-			})
+				hashedPassword
+			)
 
 			return res.status(201).send('Account successfuly created')
 
