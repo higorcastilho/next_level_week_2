@@ -1,20 +1,7 @@
 import db from '../database/connection'
 const { hash } = require('../utils/hash')
 
-interface DataProps {
-	id: number
-	name: string
-	avatar: string
-	whatsapp: string
-	bio: string
-	firstName: string
-	lastName: string
-	email: string
-	password: string
-}
-
-
-const index = async <DataProps>(id) => {
+const index = async (id: number) => {
 	try {
 		return await db('users')
 			.where({ account_id: id })
@@ -25,7 +12,7 @@ const index = async <DataProps>(id) => {
 	}
 }
 
-const update = async <DataProps>( id, name, avatar, whatsapp, bio ) => {
+const update = async ( id: number, name: string, avatar: string, whatsapp: string, bio: string ) => {
 	try {
 		return await db('users')
 			.where({ account_id: id })
@@ -41,7 +28,7 @@ const update = async <DataProps>( id, name, avatar, whatsapp, bio ) => {
 	}
 }
 
-const updateAccountData = async <DataProps>( id, firstName, lastName, email ) => {
+const updateAccountData = async ( id: number, firstName: string, lastName: string, email: string ) => {
 	try {
 		return await db('accounts')
 			.where({ id })
@@ -56,7 +43,7 @@ const updateAccountData = async <DataProps>( id, firstName, lastName, email ) =>
 	}
 }
 
-const create = async <DataProps>( firstName, lastName, email, password ) => {
+const create = async ( firstName: string, lastName: string, email: string, password: string ) => {
 	try {
 
 		const account_info = await db('accounts').insert({

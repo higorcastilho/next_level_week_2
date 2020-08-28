@@ -1,18 +1,12 @@
-import JWT from 'jsonwebtoken'
+const JWT = require('jsonwebtoken')
+const hash = require('../utils/hash')
+
 import db from '../database/connection'
-import hash from '../utils/hash'
 import crypto from 'crypto'
 
 const { sendMail, verifyTransporter } =   require('../utils/forgotPasswordHandler/index.nodemailer')
 
-interface DataProps {
-	email: string
-	password: string
-	token: string
-	accountId: number
-}
-
-const verifyIfEmailExists = async <DataProps>(email) => {
+const verifyIfEmailExists = async (email: string) => {
 
 	const account = await db('accounts').where('email', email)
 	if (!account) false
@@ -20,16 +14,16 @@ const verifyIfEmailExists = async <DataProps>(email) => {
 
 }
 
-const login = async <DataProps>(email) => await db('accounts').where('email', email)
+const login = async (email: string) => await db('accounts').where('email', email)
 	
 
-const forgotPassword = async <DataProps>(accountId, token, now) => {
+const forgotPassword = async (accountId: number, token: string, now: Date) => {
 		await db('accounts')
 			.where('id', accountId)
 			.update({ password_reset_token: token, password_reset_expires: now })
 }
 
-const resetPassword = async <DataProps>(email, password) => {
+const resetPassword = async (email: string, password: string) => {
 		await db('accounts')
 			.where('email', email)
 			.update({ password })
