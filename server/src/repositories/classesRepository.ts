@@ -29,7 +29,7 @@ const paginatedResults = async ( limit, startIndex ) => {
 
 const numOfClasses = async () => await db.select('*').from('classes')
 
-const classesFilter = async (week_day, timeInMinutes, subject) => {
+const classesFilter = async (week_day, timeInMinutes, subject, limit, startIndex) => {
 	return await db('classes')
 		.whereExists(function() {
 			this.select('class_schedule.*')
@@ -40,8 +40,26 @@ const classesFilter = async (week_day, timeInMinutes, subject) => {
 				.whereRaw('`class_schedule`.`to` > ?? ', [timeInMinutes])
 		})
 		.where('classes.subject', '=', subject)
-		.join('users', 'classes.user_id', '=', 'users.id')
+		.join('accounts', 'classes.account_id', '=', 'accounts.id')
+		.join('users', 'users.account_id', '=', 'accounts.id')
 		.select(['classes.*', 'users.*'])
+		.limit(limit)
+		.offset(startIndex)
+}
+
+const numOfClassesFilter = async (week_day, timeInMinutes, subject) => {
+	return await db
+		.select('*')
+		.from('classes')
+		.whereExists(function() {
+			this.select('class_schedule.*')
+				.from('class_schedule')
+				.whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
+				.whereRaw('`class_schedule`.`week_day` = ?? ', [Number(week_day)])
+				.whereRaw('`class_schedule`.`from` <= ?? ', [timeInMinutes])
+				.whereRaw('`class_schedule`.`to` > ?? ', [timeInMinutes])
+		})
+		.where('classes.subject', '=', subject)
 }
 
 const createClasses = async (subject, cost, accountId) => {
@@ -62,5 +80,6 @@ module.exports = {
 	numOfClasses,
 	classesFilter,
 	createClasses,
-	createClassSchedule	
+	createClassSchedule,
+	numOfClassesFilter
 }

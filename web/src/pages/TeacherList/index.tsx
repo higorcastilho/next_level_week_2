@@ -46,6 +46,31 @@ function TeacherList() {
 		setPage(page + 1)
 	}
 
+	async function getTeachers() {
+		const result = await api.get('classes', {
+			params: {
+				page, 
+				limit
+			}
+		})
+
+		return result
+	}
+
+	async function searchTeachers() {
+		const res = await api.get('classes', {
+			params: {
+				subject,
+				week_day,
+				time,
+				page,
+				limit
+			}
+		})
+
+		return res
+	}
+
 	useEffect( () => {	
 
 		//Scroll to top results on classes list
@@ -56,42 +81,34 @@ function TeacherList() {
 		setXPos(xPos)
 		setXPos(yPos)
 
-		async function getTeachers() {
-			const result = await api.get('classes', {
-				params: {
-					page, 
-					limit
-				}
+		if (subject === '' || week_day === '' || time === '' ) {
+
+			getTeachers().then( res => {
+				setTeachers(res.data.results)
+				setTotalClasses(res.data.total)
 			})
 
-			return result
+		} else {
+
+			searchTeachers().then( res => {
+				setTeachers(res.data.results)
+			})
 		}
 
-		getTeachers().then( res => {
-			setTeachers(res.data.results)
-			setTotalClasses(res.data.total)
-			console.log(res.data)
-		})
 
 	}, [page])
-
-	async function searchTeachers(e: FormEvent) {
-		e.preventDefault()
-
-		const response = await api.get('classes', {
-			params: {
-				subject,
-				week_day,
-				time
-			}
-		})
-		//setTeachers(response.data)
-	}
 
 	return (
 		<div id="page-teacher-list" className="container">
 			<PageHeader title="Estes são os proffys disponíveis.">
-				<form id="search-teachers" onSubmit={searchTeachers}>
+				<form id="search-teachers" onSubmit={ (e:FormEvent) => {
+					e.preventDefault()
+					searchTeachers().then( res => {
+						setPage(1)
+						setTeachers(res.data.results)
+						setTotalClasses(res.data.total)
+					})
+				} }>
 					<Select 
 						name="subject" 
 						label="Matéria"
