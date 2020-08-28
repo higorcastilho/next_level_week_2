@@ -2,21 +2,13 @@ import db from '../database/connection'
 import convertHourToMinutes from '../utils/convertHourToMinutes'
 
 interface ScheduleItem {
+	class_id: number
 	week_day: number
 	from: string
 	to: string
 }
 
-interface DataProps {
-	model: any
-	startIndex: number
-	limit: number
-	week_day: any
-	timeInMinutes: any
-	subject: string
-}
-
-const paginatedResults = async ( limit, startIndex ) => {
+const paginatedResults = async ( limit: number, startIndex: number ) => {
 
 		return await db
 			.select('*')
@@ -29,25 +21,31 @@ const paginatedResults = async ( limit, startIndex ) => {
 
 const numOfClasses = async () => await db.select('*').from('classes')
 
-const classesFilter = async (week_day, timeInMinutes, subject, limit, startIndex) => {
-	return await db('classes')
-		.whereExists(function() {
-			this.select('class_schedule.*')
-				.from('class_schedule')
-				.whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-				.whereRaw('`class_schedule`.`week_day` = ?? ', [Number(week_day)])
-				.whereRaw('`class_schedule`.`from` <= ?? ', [timeInMinutes])
-				.whereRaw('`class_schedule`.`to` > ?? ', [timeInMinutes])
-		})
-		.where('classes.subject', '=', subject)
-		.join('accounts', 'classes.account_id', '=', 'accounts.id')
-		.join('users', 'users.account_id', '=', 'accounts.id')
-		.select(['classes.*', 'users.*'])
-		.limit(limit)
-		.offset(startIndex)
+const classesFilter = async (
+	week_day: number, 
+	timeInMinutes: number, 
+	subject: string, 
+	limit: number, 
+	startIndex: number
+	) => {
+		return await db('classes')
+			.whereExists(function() {
+				this.select('class_schedule.*')
+					.from('class_schedule')
+					.whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
+					.whereRaw('`class_schedule`.`week_day` = ?? ', [Number(week_day)])
+					.whereRaw('`class_schedule`.`from` <= ?? ', [timeInMinutes])
+					.whereRaw('`class_schedule`.`to` > ?? ', [timeInMinutes])
+			})
+			.where('classes.subject', '=', subject)
+			.join('accounts', 'classes.account_id', '=', 'accounts.id')
+			.join('users', 'users.account_id', '=', 'accounts.id')
+			.select(['classes.*', 'users.*'])
+			.limit(limit)
+			.offset(startIndex)
 }
 
-const numOfClassesFilter = async (week_day, timeInMinutes, subject) => {
+const numOfClassesFilter = async (week_day: number, timeInMinutes: number, subject: string) => {
 	return await db
 		.select('*')
 		.from('classes')
@@ -62,7 +60,7 @@ const numOfClassesFilter = async (week_day, timeInMinutes, subject) => {
 		.where('classes.subject', '=', subject)
 }
 
-const createClasses = async (subject, cost, accountId) => {
+const createClasses = async (subject: string, cost: number, accountId: number) => {
 
 	return await db('classes').insert({
 		subject,
@@ -71,7 +69,7 @@ const createClasses = async (subject, cost, accountId) => {
 	})
 }
 
-const createClassSchedule = async (classSchedule) => {
+const createClassSchedule = async (classSchedule: ScheduleItem) => {
 	await db('class_schedule').insert(classSchedule)
 }
 

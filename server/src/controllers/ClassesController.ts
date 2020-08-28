@@ -98,7 +98,7 @@ export default class ClassesController {
 				const allClasses = await ClassesRepository.numOfClassesFilter(filters.week_day, timeInMinutes, filters.subject)
 
 				results.total = allClasses.length
-				console.log(results)
+			
 				return results
 
 			} catch (err) {
