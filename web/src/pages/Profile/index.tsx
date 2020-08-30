@@ -40,7 +40,6 @@ function Profile() {
 	const [ firstName, setFirstName ] = useState('')
 	const [ lastName, setLastName ] = useState('')
 	const [ email, setEmail ] = useState('')
-	const [ password, setPassword ] = useState('')
 
 	useEffect(() => {
 		
@@ -94,8 +93,7 @@ function Profile() {
 			await api.post(`accounts/${accountId}`, {
 				firstName,
 				lastName,
-				email,
-				password
+				email
 			}).then(() => {
 				alert('Dados de conta atualizados com sucesso!')
 				history.push('/profile')
@@ -243,16 +241,12 @@ function Profile() {
 							}} 
 							required
 						/>
-						<Input
-							name="password"
-							label="Sua senha"
-							placeholder="xxxxxxxx"
-							type="password"
-							onChange={e => {
-								setPassword(e.target.value)
-							}}
-							required
-						/>
+						<Link to="/change-password" id="change-password-button">
+							<button type="submit" >
+								Alterar minha senha
+							</button>
+						</Link>
+						
 					</fieldset>
 					<footer>
 						<p>

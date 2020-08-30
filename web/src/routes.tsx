@@ -12,6 +12,7 @@ import DoneRegister from './pages/DoneRegister'
 import Profile from './pages/Profile'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import ChangePassword from './pages/ChangePassword'
 
 interface PrivateRouteProps extends RouteProps {
 	component: any
@@ -48,6 +49,7 @@ function Routes() {
 			<PrivateRoute path="/study" component={TeacherList} />
 			<PrivateRoute path="/give-classes" component={TeacherForm} />
 			<PrivateRoute path="/profile" component={Profile} />
+			<PrivateRoute path="/change-password" component={ChangePassword} />
 		</BrowserRouter>
 	)
 }
