@@ -2,7 +2,7 @@ import Knex from 'knex'
 
 export async function up(knex: Knex) {
 	return knex.schema.createTable('classes', table => {
-		table.increments('id').primary()
+		table.increments('classIdPrimary').primary()
 		table.string('subject').notNullable()
 		table.decimal('cost').notNullable()
 

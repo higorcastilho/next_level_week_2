@@ -25,8 +25,8 @@ export default class ClassesController {
 			const results = {
 				next : {},
 				previous: {},
-				results: {},
-				total: ''
+				results: [],
+				total: '',
 			}
 
 			if (endIndex < 10/*model.length*/) {
@@ -51,6 +51,18 @@ export default class ClassesController {
 
 				const allClasses = await ClassesRepository.numOfClasses()
 				results.total = allClasses.length 
+
+				await results.results.map( async item => {
+					
+					await ClassesRepository.getClassSchedules(item.classIdPrimary).then( (res) => {
+						const schedules = res
+						const schedulesObject = { schedules }
+						Object.assign(item, schedulesObject)
+						return item
+					}).then( (res) => {
+						console.log(res)
+					})
+				})
 
 				return results
 			} catch (err) {
@@ -116,6 +128,12 @@ export default class ClassesController {
 		}
 
 
+	}
+
+	async getClassSchedules(req: Req, res: Res) {
+		const { classIdPrimary } = req.params
+		const classSchedule = await ClassesRepository.getClassSchedules(classIdPrimary)
+		res.json(classSchedule)
 	}
 
 	async create(req: Req, res: Res) {

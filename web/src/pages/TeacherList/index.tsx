@@ -84,6 +84,7 @@ function TeacherList() {
 		if (subject === '' || week_day === '' || time === '' ) {
 
 			getTeachers().then( res => {
+				console.log(res.data.results)
 				setTeachers(res.data.results)
 				setTotalClasses(res.data.total)
 			})

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import convertMinutesToHours from '../../utils/convertMinutesToHours'
+
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
 
 import api from '../../services/api'
@@ -15,6 +17,8 @@ export interface Teacher {
 	name: string
 	subject: string
 	whatsapp: string
+	from: number
+	to: number
 }
 
 interface TeacherItemProps {
@@ -23,16 +27,20 @@ interface TeacherItemProps {
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 
+
 	function createNewConnection() {
 		api.post('connections', {
 			user_id: teacher.id
 		})
 	}
 
+	const [ fromHour, fromMinutes ] = convertMinutesToHours(teacher.from)
+	const [ toHour, toMinutes ] = convertMinutesToHours(teacher.to)
+
 	return (
 		<article className="teacher-item">
 			<header>
-				<img src={teacher.avatar} alt="Higor Castilho" />
+				<img src={teacher.avatar} alt="" />
 				<div>
 					<strong>{teacher.name}</strong>
 					<span>{teacher.subject}</span>
@@ -40,6 +48,10 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 			</header>
 			
 			<p> {teacher.bio} </p>
+
+			<div>
+				
+			</div>
 
 			<footer>
 				<p>

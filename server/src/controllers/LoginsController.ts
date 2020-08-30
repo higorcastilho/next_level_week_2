@@ -94,4 +94,26 @@ export default class LoginsController {
 			res.status(400).send({ error: 'Invalid link. Please, try get a new email link.' })
 		}
 	}
+
+	async changePassword(req, res) {
+
+		const { email, currentPassword, newPassword } = req.body
+
+		try {
+			const userData = await LoginsRepository.login(email)
+			const passwordOk = await hash.compare(currentPassword, userData[0].password)
+
+			if (!passwordOk) {
+				console.log('Senha inválida')
+				res.json({'error': 'Senha inválida'})
+			}
+
+			const hashedPassword = await hash.encrypt(newPassword)
+			await LoginsRepository.resetPassword(email, hashedPassword)
+			res.send()
+
+		} catch (e) {
+			console.log(e.message)
+		}
+	}
 }
