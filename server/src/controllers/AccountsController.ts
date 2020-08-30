@@ -64,13 +64,15 @@ export default class AccountsController {
 		try {
 
 			const { id } = req.params
-			const { firstName, lastName, email } = req.body
+			const { firstName, lastName, email, password } = req.body
+			const hashedPassword = await hash.encrypt(password)
 
 			const userUpdated = await AccountsRepository.updateAccountData(
 				id,
 				firstName,
 				lastName,
-				email
+				email,
+				hashedPassword
 			)
 
 			res.json(userUpdated)
