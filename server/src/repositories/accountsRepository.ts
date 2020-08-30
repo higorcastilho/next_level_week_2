@@ -28,14 +28,15 @@ const update = async ( id: number, name: string, avatar: string, whatsapp: strin
 	}
 }
 
-const updateAccountData = async ( id: number, firstName: string, lastName: string, email: string ) => {
+const updateAccountData = async ( id: number, firstName: string, lastName: string, email: string, password: string ) => {
 	try {
 		return await db('accounts')
 			.where({ id })
 			.update({ 
 				firstName,
 				lastName,
-				email
+				email,
+				password
 			})
 
 	} catch (e) {
