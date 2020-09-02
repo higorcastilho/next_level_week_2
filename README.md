@@ -7,7 +7,7 @@
 
 - Users authentication with bcrypt and JWT
 - Logout 
-- Reponsive and mobile friendly Login, Register and Success Register pages 
+- Reponsive and mobile friendly pages (Login, Register, TeacherList, Success register page, Change Password etc)
 - Editable user profile page
 - Lading page with user header photo, name and logout button
 - Password recovery
