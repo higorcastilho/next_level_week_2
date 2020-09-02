@@ -14,16 +14,15 @@ const paginatedResults = async ( limit: number, startIndex: number ) => {
 			.select('*')
 			.from('classes')
 			.join('accounts', 'classes.account_id', 'accounts.id' )
-			.join('users', 'users.account_id', 'accounts.id')	
+			.join('users', 'users.account_id', 'accounts.id')
 			.limit(limit)
 			.offset(startIndex)
 }
 
-const getClassSchedules = async (classIdPrimary: number) => {
+const getClassSchedules = async () => {
 	return await db
-		.select('week_day', 'from', 'to')
+		.select('*')
 		.from('class_schedule')
-		.where('class_schedule.class_id', '=', classIdPrimary)
 }
 
 const numOfClasses = async () => await db.select('*').from('classes')

@@ -1,4 +1,6 @@
-import React, { useState, FormEvent, useEffect } from 'react'
+import React, { useState, FormEvent, useEffect, useContext } from 'react'
+
+import { Context } from '../../context/AuthContext'
 
 import PageHeader from '../../components/PageHeader'
 import TeacherItem, { Teacher } from '../../components/TeacherItem'
@@ -14,8 +16,21 @@ import './styles.css'
 
 function TeacherList() { 
 
-	const [ teachers, setTeachers ] = useState([])
+	const [ teachers, setTeachers ] = useState([{
+		avatar: '',
+		bio: '',
+		cost: 0,
+		id: 0,
+		account_id: 0,
+		name: '',
+		subject: '',
+		whatsapp: '',
+		schedules: []
+		}
+	])
 
+	const { handleShowAllTeachers } = useContext(Context)
+ 
 	const [xPos, setXPos] = useState(0)
 	const [yPos, setYPos] = useState(0)
 
@@ -46,17 +61,6 @@ function TeacherList() {
 		setPage(page + 1)
 	}
 
-	async function getTeachers() {
-		const result = await api.get('classes', {
-			params: {
-				page, 
-				limit
-			}
-		})
-
-		return result
-	}
-
 	async function searchTeachers() {
 		const res = await api.get('classes', {
 			params: {
@@ -83,20 +87,18 @@ function TeacherList() {
 
 		if (subject === '' || week_day === '' || time === '' ) {
 
-			getTeachers().then( res => {
-				console.log(res.data.results)
-				setTeachers(res.data.results)
-				setTotalClasses(res.data.total)
+			const data = handleShowAllTeachers(page, limit)
+			data.then( res => {
+				setTeachers(res)
+				setTotalClasses(res.length)
 			})
 
 		} else {
 
 			searchTeachers().then( res => {
-				setTeachers(res.data.results)
+				//setTeachers(res.data.results)
 			})
 		}
-
-
 	}, [page])
 
 	return (

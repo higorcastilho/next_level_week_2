@@ -76,6 +76,45 @@
 	background: var(--color-secondary-dark);
 }
 
+#teacher-item-schedule-card {
+	white-space: nowrap;
+	overflow-x: scroll;
+	margin-top: 2rem;
+	margin-left: 1rem
+}
+
+#teacher-item-schedule-card::-webkit-scrollbar {
+	display: none
+}	
+
+#teacher-item-schedule-card > section {
+	min-width: 150px;
+	min-height: 18rem;
+	margin: 0 .5rem;
+	padding: 1.5rem;
+	border: 1px solid var(--color-line-in-white);
+	border-radius: 1rem;
+	display: inline-block;
+	background: var(--color-box-footer);
+}
+
+#teacher-item-schedule-card > section > p {
+	color: var(--color-text-complement);
+	font: 700 1.5rem Poppins;
+	
+}
+
+#teacher-item-schedule-card > section > p {
+	margin-top: 1rem
+	
+}
+
+#teacher-item-schedule-card > section > strong {
+	color: var(--color-text-base);
+	font: 700 1.8rem Archivo;	
+	font-weight: bold
+}
+
 @media (min-width: 700px) {
 	
 	.teacher-item header,

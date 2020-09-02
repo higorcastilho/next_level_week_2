@@ -17,8 +17,7 @@ export interface Teacher {
 	name: string
 	subject: string
 	whatsapp: string
-	from: number
-	to: number
+	schedules: any[]
 }
 
 interface TeacherItemProps {
@@ -34,8 +33,31 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 		})
 	}
 
-	const [ fromHour, fromMinutes ] = convertMinutesToHours(teacher.from)
-	const [ toHour, toMinutes ] = convertMinutesToHours(teacher.to)
+	function handleWeekDay(day: number) {
+		switch (day) {
+			case 0:
+				return 'Domingo' 
+				break;
+			case 1:
+				return 'Segunda' 
+				break;
+			case 2:
+				return 'Terça' 
+				break;
+			case 3:
+				return 'Quarta' 
+				break;
+			case 4:
+				return 'Quinta' 
+				break;
+			case 5:
+				return 'Sexta' 
+				break;
+			case 6:
+				return 'Sábado' 
+				break;
+		}
+	}
 
 	return (
 		<article className="teacher-item">
@@ -49,14 +71,26 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 			
 			<p> {teacher.bio} </p>
 
-			<div>
-				
+			<div id="teacher-item-schedule-card">
+				{ 
+					teacher.schedules.map( (schedule) => {
+					const [ fromHour, fromMinutes ] = convertMinutesToHours(schedule.from)
+					const [ toHour, toMinutes ] = convertMinutesToHours(schedule.to)
+					const day = handleWeekDay(schedule.week_day)
+					return <section>
+								<p>Dia</p>
+								<strong>{ day }</strong>
+								<p> Horário</p>
+								<strong>{fromHour}:{fromMinutes} - {toHour}:{toMinutes}</strong>
+							</section>
+					})
+			 	}
 			</div>
 
 			<footer>
 				<p>
 					Preço/hora
-					<strong>{teacher.cost}</strong>
+					<strong>R$ {teacher.cost}</strong>
 				</p>
 				<a  
 					target="_blank" 

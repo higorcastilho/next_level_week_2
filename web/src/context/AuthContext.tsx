@@ -2,7 +2,7 @@ import React, { createContext, useState, FormEvent } from 'react'
 
 import handleLogin from './login.auth.context'
 import handleUser from './user.auth.context'
-
+import showAllTeachers from './handleTeachers.auth.context'
 
 interface AuthContextData {
 	authenticated: boolean
@@ -20,6 +20,7 @@ interface AuthContextData {
 
 	signIn(email:string, password:string):Promise<void>
 	handleUserInfo():Promise<void>
+	handleShowAllTeachers(page: number, limit: number):Promise<any[]>
 }
 
 export const Context = createContext<AuthContextData>({} as AuthContextData)
@@ -78,10 +79,13 @@ export const AuthProvider: React.FC = ( { children } ) => {
 		}
 	}
 
-	
+	async function handleShowAllTeachers(page: number, limit: number) {
+		const teachersData = await showAllTeachers(page, limit)
+		return teachersData
+	}
 
 	return (
-		<Context.Provider value={ { authenticated, user, signIn, handleUserInfo } }>
+		<Context.Provider value={ { authenticated, user, signIn, handleUserInfo, handleShowAllTeachers } }>
 			{ children }
 		</Context.Provider>
 	)
