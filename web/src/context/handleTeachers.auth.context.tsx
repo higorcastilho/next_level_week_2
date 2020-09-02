@@ -9,6 +9,7 @@ interface TeacherResponse {
 	whatsapp: string
 	classIdPrimary: number
 	schedules: any[]
+	total: number
 }
 
 interface ScheduleItem {
@@ -36,6 +37,7 @@ const showTeachers = (page: number, limit: number):Promise<TeacherResponse[]> =>
 					limit
 				}
 			}).then( (res) => {
+				
 				const teachersResponse = res.data.results.map( (teacherResponse: TeacherResponse) => {
 
 					const schedules:any[] = []
@@ -48,7 +50,8 @@ const showTeachers = (page: number, limit: number):Promise<TeacherResponse[]> =>
 						subject: teacherResponse.subject,
 						whatsapp: teacherResponse.whatsapp,
 						classIdPrimary: teacherResponse.classIdPrimary,
-						schedules: schedules
+						schedules: schedules,
+						total: res.data.total
 					}
 				})
 
@@ -57,7 +60,7 @@ const showTeachers = (page: number, limit: number):Promise<TeacherResponse[]> =>
 	} )
 }
 
-export default async function showAllTeachers(page: number, limit: number):Promise<any[]> {
+export default async function showAllTeachers(page: number, limit: number):Promise<TeacherResponse[]> {
 	
 	const schedules = await showSchedules()
 	

@@ -77,7 +77,7 @@ function TeacherList() {
 
 	useEffect( () => {	
 
-		//Scroll to top results on classes list
+		//Scrolls to top results on classes list
 		const rect:any = document.querySelector('main')
 		const position = rect.getBoundingClientRect()
 		const xPos = position.x
@@ -90,7 +90,8 @@ function TeacherList() {
 			const data = handleShowAllTeachers(page, limit)
 			data.then( res => {
 				setTeachers(res)
-				setTotalClasses(res.length)
+				console.log(res)
+				setTotalClasses(res[0].total)
 			})
 
 		} else {

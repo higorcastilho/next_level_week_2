@@ -35,29 +35,40 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 
 	function handleWeekDay(day: number) {
 		switch (day) {
-			case 0:
+			case 6:
 				return 'Domingo' 
 				break;
-			case 1:
+			case 0:
 				return 'Segunda' 
 				break;
-			case 2:
+			case 1:
 				return 'Terça' 
 				break;
-			case 3:
+			case 2:
 				return 'Quarta' 
 				break;
-			case 4:
+			case 3:
 				return 'Quinta' 
 				break;
-			case 5:
+			case 4:
 				return 'Sexta' 
 				break;
-			case 6:
+			case 5:
 				return 'Sábado' 
 				break;
 		}
 	}
+
+	const week_days:any[] = [
+
+		{ week_day: 0, to: 0, from: 0, id: 0, class_id: 0 },
+		{ week_day: 1, to: 0, from: 0, id: 0, class_id: 0 },
+		{ week_day: 2, to: 0, from: 0, id: 0, class_id: 0 },
+		{ week_day: 3, to: 0, from: 0, id: 0, class_id: 0 },
+		{ week_day: 4, to: 0, from: 0, id: 0, class_id: 0 },
+		{ week_day: 5, to: 0, from: 0, id: 0, class_id: 0 },
+		{ week_day: 6, to: 0, from: 0, id: 0, class_id: 0 }
+	]
 
 	return (
 		<article className="teacher-item">
@@ -72,19 +83,39 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
 			<p> {teacher.bio} </p>
 
 			<div id="teacher-item-schedule-card">
+
 				{ 
-					teacher.schedules.map( (schedule) => {
-					const [ fromHour, fromMinutes ] = convertMinutesToHours(schedule.from)
-					const [ toHour, toMinutes ] = convertMinutesToHours(schedule.to)
-					const day = handleWeekDay(schedule.week_day)
-					return <section>
-								<p>Dia</p>
-								<strong>{ day }</strong>
-								<p> Horário</p>
-								<strong>{fromHour}:{fromMinutes} - {toHour}:{toMinutes}</strong>
-							</section>
+					week_days.map( (item, index) => {
+						teacher.schedules.map( schedule => {
+
+							if (item.week_day === schedule.week_day) {
+								week_days[index] = schedule
+							} else {
+								week_days[index] = week_days[index]
+							}
+						})
+
+						const [ fromHour, fromMinutes ] = convertMinutesToHours(week_days[index].from)
+						const [ toHour, toMinutes ] = convertMinutesToHours(week_days[index].to)
+						const day = handleWeekDay(week_days[index].week_day)
+						if (!week_days[index].to && !week_days[index].from) {
+							return <section style={{opacity: "0.45"}}>
+									<p>Dia</p>
+									<strong>{ day }</strong>
+									<p> Horário</p>
+									<strong> - </strong>
+								</section>
+						} else {
+							return <section>
+									<p>Dia</p>
+									<strong>{ day }</strong>
+									<p> Horário</p>
+									<strong>{fromHour}:{fromMinutes} - {toHour}:{toMinutes}</strong>
+								</section>
+						}
 					})
 			 	}
+
 			</div>
 
 			<footer>

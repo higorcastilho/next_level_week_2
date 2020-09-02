@@ -26,7 +26,7 @@ export default class ClassesController {
 				next : {},
 				previous: {},
 				results: [],
-				total: ''
+				total: 0
 			}
 
 			if (endIndex < 10/*model.length*/) {
@@ -50,8 +50,8 @@ export default class ClassesController {
 				results.results = await ClassesRepository.paginatedResults(limit, startIndex)
 
 				const allClasses = await ClassesRepository.numOfClasses()
-				results.total = allClasses.length
-
+				results.total = allClasses.length.toString()
+				
 				return results
 			} catch (err) {
 				res.status(500).json({ message: err.message })
@@ -70,7 +70,7 @@ export default class ClassesController {
 				next : {},
 				previous: {},
 				results: [],
-				total: ''
+				total: 0
 			}
 
 			if (endIndex < 10/*model.length*/) {
@@ -98,7 +98,7 @@ export default class ClassesController {
 				const allClasses = await ClassesRepository.numOfClassesFilter(filters.week_day, timeInMinutes, filters.subject)
 
 				results.total = allClasses.length
-			
+
 				return results
 
 			} catch (err) {
