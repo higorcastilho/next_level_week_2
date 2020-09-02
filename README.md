@@ -15,3 +15,4 @@
 - Paginated API to classes list
 - Change password and email
 - Teacher list displaying each teacher schedule (with horizontal scroll on mobile)
+- Now each teacher can teach different subjects  
