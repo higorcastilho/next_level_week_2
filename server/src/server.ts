@@ -23,6 +23,6 @@ app.use(classesRoutes)
 app.use(accountsRoutes)
 app.use(loginsRoutes)
 
-app.listen(PORT, () => {
+app.listen(PORT || 3333, () => {
 	console.log('Running on port 3333')
 })

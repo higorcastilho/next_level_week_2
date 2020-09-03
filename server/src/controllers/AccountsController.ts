@@ -6,7 +6,7 @@ export default class AccountsController {
 	async index(req, res) {
 		try {
 			const userInfo = await AccountsRepository.index(req.params.id)
-
+	
 			const {
 				id, 
 				name, 

@@ -52,7 +52,7 @@ const create = async ( firstName: string, lastName: string, email: string, passw
 			lastName,
 			email,
 			password
-		})
+		}).returning('id')
 
 		await db('users').insert({
 			name: 'Nome',
@@ -60,6 +60,7 @@ const create = async ( firstName: string, lastName: string, email: string, passw
 			whatsapp: '',
 			bio: '',
 			account_id: account_info[0]
+			//account_id: account_info[0] to verify if its necessary
 		})
 
 		return 'Account successfuly created'
