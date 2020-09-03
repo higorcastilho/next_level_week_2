@@ -60,7 +60,7 @@ const showTeachers = (page: number, limit: number):Promise<TeacherResponse[]> =>
 	} )
 }
 
-export default async function showAllTeachers(page: number, limit: number):Promise<TeacherResponse[]> {
+export default async function showAllTeachers(page: number, limit: number):Promise<any[]> {
 	
 	const schedules = await showSchedules()
 	

@@ -48,6 +48,29 @@
 	margin-top: 2.4rem;
 }
 
+.header-content-footer {
+	width: 100%;
+}
+
+.header-content-footer > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 2rem 0;
+}
+
+#emoji-corner p {
+	display: inline-block;
+	max-width: 15rem;
+	font-size: 1.4rem
+
+}
+
+#emoji-corner img {
+	margin-right: 2rem;
+	margin-top: 1.5rem
+}
+
 @media (min-width: 1100px) {
 	.page-header {
 		height: 340px;
@@ -85,15 +108,4 @@
 		justify-content: center;
 	}
 
-	#emoji-corner p {
-		display: inline-block;
-		max-width: 15rem;
-		font-size: 1.4rem
-
-	}
-
-	#emoji-corner img {
-		margin-right: 2rem;
-		margin-top: 1.5rem
-	}
 }

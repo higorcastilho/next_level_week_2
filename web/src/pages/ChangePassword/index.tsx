@@ -99,6 +99,7 @@ function ChangePassword() {
 								label="Senha atual" 
 								placeholder="Senha atual"
 								required
+								type="password"
 								value={currentPassword}
 								onChange={ e => {
 									setCurrentPassword(e.target.value)
@@ -110,6 +111,7 @@ function ChangePassword() {
 								label="Nova senha" 
 								placeholder="Nova senha"
 								required
+								type="password"
 								value={newPassword}
 								onChange={ e => {
 									setNewPassword(e.target.value)
@@ -121,6 +123,7 @@ function ChangePassword() {
 								label="Confirme sua nova senha" 
 								placeholder="Nova senha"
 								required
+								type="password"
 								value={newPasswordCompare}
 								onChange={ e => {
 									setNewPasswordCompare(e.target.value)
