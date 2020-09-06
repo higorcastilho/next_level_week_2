@@ -5,6 +5,7 @@
 <p align="center">
   <a href="#hearts-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#hammer-new-features">New Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#hammer-tools">Tools</a>;
 </p>
 
 <h2 align="center">
@@ -16,6 +17,14 @@
 ### :hearts: About
 
 **Proffy** was a project developed from 03/08 to 07/08 by Rocketseat at second Next Level Week edition. It's a web app made to connect teachers and students who love to share and learn about several topics.
+
+### :hammer: Tools
+
+-  [Typescript](https://www.typescriptlang.org/)
+-  [Node.js](https://nodejs.org/en/)
+-  [ReactJS](https://reactjs.org/)
+-  [Express](https://expressjs.com/)
+-  [Axios](https://github.com/axios/axios)
 
 ### :dart: New Features
 
