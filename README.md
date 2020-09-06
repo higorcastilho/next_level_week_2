@@ -2,6 +2,11 @@
    <img alt="Proffy" src=".github/logo.svg" height="100px">
    <br>Next Level Week 02</br>
 </h1>
+
+<p align="center">
+  <img alt="Dveloped by Rocketseat" src="https://img.shields.io/badge/developed%20by-Rocketseat-blueviolet"><br/>
+</p>
+
 <p align="center">
   <a href="#hearts-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#hammer-new-features">New Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
