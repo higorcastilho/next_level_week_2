@@ -2,9 +2,14 @@
    <img alt="Proffy" src=".github/logo.svg" height="100px">
    <br>Next Level Week 02</br>
 </h1>
+
+<p align="center">
+  <img alt="Dveloped by Rocketseat" src="https://img.shields.io/badge/developed%20by-Rocketseat-blueviolet"><br/>
+</p>
+
 <p align="center">
   <a href="#hearts-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#hammer-new-features">New Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#dart-new-features">New Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#hammer-tools">Tools</a>
 </p>
 
@@ -16,7 +21,7 @@
 
 ### :hearts: About
 
-**Proffy** was a project developed from 03/08 to 07/08 by Rocketseat at second Next Level Week edition. It's a web app made to connect teachers and students who love to share and learn about several topics.
+**Proffy** was a project developed from 03/08 to 07/08 by [Rocketseat](https://rocketseat.com.br/) at second Next Level Week edition. It's a web app made to connect teachers and students who love to share and learn about several topics.
 The **source code** can be found here:
 - [Front-end](https://github.com/higorcastilho/nlw_web)
 - [Back-end](https://github.com/higorcastilho/nlw_server)
@@ -31,7 +36,7 @@ The **source code** can be found here:
 
 ### :dart: New Features
 
-The **challenge** now is to add new features to this app. I've been adding some of them on web version: 
+The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a895613bc6235970)** now is to add new features to this app. I've been adding some of them on web version: 
 
 - Users authentication with bcrypt and JWT
 - Logout 
