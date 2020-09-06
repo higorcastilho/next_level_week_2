@@ -3,8 +3,8 @@
    <br>Next Level Week 02</br>
 </h1>
 <p align="center">
-  <a href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#new-features">New Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#hearts-about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#hammer-new-features">New Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 <h2 align="center">
@@ -13,11 +13,11 @@
 
 </h2>
 
-### About
+### :hearts: About
 
 **Proffy** was a project developed from 03/08 to 07/08 by Rocketseat at second Next Level Week edition. It's a web app made to connect teachers and students who love to share and learn about several topics.
 
-### New Features
+### :dart: New Features
 
 The **challenge** now is to add new features to this app. I've been adding some of them on web version: 
 
