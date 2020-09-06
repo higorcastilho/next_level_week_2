@@ -36,7 +36,7 @@ The **source code** can be found here:
 
 ### :dart: New Features
 
-The **challenge** now is to add new features to this app. I've been adding some of them on web version: 
+The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a895613bc6235970)** now is to add new features to this app. I've been adding some of them on web version: 
 
 - Users authentication with bcrypt and JWT
 - Logout 
