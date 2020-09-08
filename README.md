@@ -47,4 +47,5 @@ The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a89561
 - Paginated API to classes list
 - Change password and email
 - Teacher list displaying each teacher schedule (with horizontal scroll on mobile)
-- Now each teacher can teach different subjects  
+- Now each teacher can teach different subjects 
+- Edit classes
