@@ -49,4 +49,4 @@ The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a89561
 - Change password and email
 - Teacher list displaying each teacher schedule (with horizontal scroll on mobile)
 - Now each teacher can teach different subjects in different schedules
-- Edit classes
+- Completely editable classes
