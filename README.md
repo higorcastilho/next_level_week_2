@@ -39,14 +39,14 @@ The **source code repositories** can be found here:
 The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a895613bc6235970)** now is to add new features to this app. I've been adding some of them on web version: 
 
 - [x] Users authentication with bcrypt and JWT
-- Logout 
-- Reponsive and mobile friendly pages (Login, Register, TeacherList, Success register page, Change Password etc)
-- Profile page
-- Editable user profile page
-- Lading page with user header photo, name and logout button
-- Password recovery
-- Paginated API to classes list
-- Change password and email
-- Teacher list displaying each teacher schedule (with horizontal scroll on mobile)
-- Now each teacher can teach different subjects in different schedules
-- Completely editable classes
+- [x] Logout 
+- [x] Reponsive and mobile friendly pages (Login, Register, TeacherList, Success register page, Change Password etc)
+- [x] Profile page
+- [x] Editable user profile page
+- [x] Lading page with user header photo, name and logout button
+- [x] Password recovery
+- [x] Paginated API to classes list
+- [x] Change password and email
+- [x] Teacher list displaying each teacher schedule (with horizontal scroll on mobile)
+- [x] Now each teacher can teach different subjects in different schedules
+- [x] Completely editable classes
