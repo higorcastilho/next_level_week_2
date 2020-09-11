@@ -38,7 +38,7 @@ The **source code repositories** can be found here:
 
 The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a895613bc6235970)** now is to add new features to this app. I've been adding some of them on web version: 
 
-- [x ] Users authentication with bcrypt and JWT
+- [x] Users authentication with bcrypt and JWT
 - Logout 
 - Reponsive and mobile friendly pages (Login, Register, TeacherList, Success register page, Change Password etc)
 - Profile page
