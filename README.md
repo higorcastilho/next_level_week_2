@@ -1,6 +1,7 @@
 <h1 align="center">
    <img alt="Proffy" src=".github/logo.svg" height="100px">
    <br>Next Level Week 02</br>
+   <br>[Visit the website](https://ecstatic-rosalind-d9b9bc.netlify.app/):arrow_upper_right:</br>
 </h1>
 
 <p align="center">
@@ -51,3 +52,4 @@ The **[challenge](https://www.notion.so/Vers-o-2-0-Proffy-eefca1b981694cd0a89561
 - [x] Teacher list displaying each teacher schedule (with horizontal scroll on mobile)
 - [x] Now each teacher can teach different subjects in different schedules
 - [x] Completely editable classes
+- [x] Deployment on Netlify
