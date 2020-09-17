@@ -1,7 +1,7 @@
 <h1 align="center">
    <img alt="Proffy" src=".github/logo.svg" height="100px">
    <br>Next Level Week 02</br>
-   <br>[Visit the website](https://ecstatic-rosalind-d9b9bc.netlify.app/):arrow_upper_right:</br>
+   <br> [Visit the website](https://ecstatic-rosalind-d9b9bc.netlify.app/) :arrow_upper_right:</br>
 </h1>
 
 <p align="center">
